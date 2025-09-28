@@ -1,0 +1,19 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    paths:
+        - src
+    level: 6
+    tmpDir: build/phpstan
+    checkMissingIterableValueType: true
+    checkGenericClassInNonGenericObjectType: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#Undefined function env#'
+        - '#Call to an undefined static method Illuminate\\Support\\Facades\\Http::response#'
+        - '#Undefined function config#'
+        - '#Undefined function app#'
+        - '#Undefined function now#'
+        - '#Undefined function it#'
+        - '#Undefined function expect#'

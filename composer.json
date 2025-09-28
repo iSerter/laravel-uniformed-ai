@@ -1,0 +1,49 @@
+{
+  "name": "iserter/laravel-uniformed-ai",
+  "description": "Uniform AI API for Laravel (Chat, Images, Audio, Music, Search) across OpenAI, OpenRouter, Google AI Studio, KIE.AI, PIAPI.AI, Tavily, ElevenLabs, etc.",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.2",
+    "illuminate/support": "^10.0|^11.0|^12.0",
+    "guzzlehttp/guzzle": "^7.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Iserter\\UniformedAI\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Iserter\\UniformedAI\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "orchestra/testbench": "^8.0|^9.0",
+    "pestphp/pest": "^2.34",
+    "pestphp/pest-plugin-laravel": "^2.4",
+    "friendsofphp/php-cs-fixer": "^3.59",
+    "phpstan/phpstan": "^1.11"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Iserter\\UniformedAI\\UniformedAIServiceProvider"
+      ],
+      "aliases": {
+        "AI": "Iserter\\UniformedAI\\Facades\\AI"
+      }
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "format": "php-cs-fixer fix --config=.php-cs-fixer.dist.php --ansi",
+    "format:check": "php-cs-fixer fix --dry-run --diff --config=.php-cs-fixer.dist.php --ansi",
+    "stan": "phpstan analyse --configuration=phpstan.neon.dist --memory-limit=1G"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
