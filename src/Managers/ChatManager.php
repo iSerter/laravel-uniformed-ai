@@ -15,8 +15,11 @@ use Iserter\UniformedAI\Drivers\Google\GoogleChatDriver;
 use Iserter\UniformedAI\Drivers\KIE\KIEChatDriver;
 use Iserter\UniformedAI\Drivers\PIAPI\PIAPIChatDriver;
 
+use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
+
 class ChatManager extends Manager implements ChatContract
 {
+    use SupportsUsing;
     public function getDefaultDriver()
     {
         return config('uniformed-ai.defaults.chat');

@@ -1,14 +1,9 @@
 <?php
 
-use Iserter\UniformedAI\UniformedAIServiceProvider;
+use Iserter\UniformedAI\Tests\TestCase;
 
 /**
  * Pest configuration
  */
 
-uses(Orchestra\Testbench\TestCase::class)->in('.');
-
-function getPackageProviders($app)
-{
-    return [UniformedAIServiceProvider::class];
-}
+uses(TestCase::class)->in('.');

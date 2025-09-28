@@ -66,6 +66,27 @@ file_put_contents(storage_path('app/hello.mp3'), base64_decode($tts->b64Audio));
 
 // Search
 $results = AI::search()->query(new SearchQuery('Latest on PHP 8.3 features', maxResults: 5));
+
+// On-the-fly provider override (bypasses configured default):
+// Chat default may be openai, but call OpenRouter just for this request
+$or = AI::chat('openrouter')->send(new ChatRequest([
+    new ChatMessage('user', 'Respond via OpenRouter only once.')
+]));
+
+// Image with named argument provider (works nicely with PHP named params)
+$img2 = AI::image(provider: 'openai')->create(new ImageRequest(prompt: 'A serene lake at dawn'));
+
+// Fluent style (returns the driver instance) – equivalent to AI::chat('openrouter')
+$resp = AI::chat()->using('openrouter')->send(new ChatRequest([
+    new ChatMessage('user', 'Fluent chain example')
+]));
+
+// Unknown driver names throw a UniformedAIException
+try {
+    AI::chat()->using('does_not_exist')->send(new ChatRequest([ new ChatMessage('user', 'hi') ]));
+} catch (\Iserter\UniformedAI\Exceptions\UniformedAIException $e) {
+    // Handle unsupported driver
+}
 ```
 
 ## Extending

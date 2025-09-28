@@ -21,11 +21,38 @@ class UniformedAIServiceProvider extends ServiceProvider
         $this->app->singleton('iserter.uniformed-ai.facade', function ($app) {
             return new class($app) {
                 public function __construct(private $app) {}
-                public function chat()  { return $this->app->make(ChatManager::class); }
-                public function image() { return $this->app->make(ImageManager::class); }
-                public function audio() { return $this->app->make(AudioManager::class); }
-                public function music() { return $this->app->make(MusicManager::class); }
-                public function search(){ return $this->app->make(SearchManager::class); }
+
+                /**
+                 * Get the chat manager or a specific chat driver when $driver provided.
+                 */
+                public function chat(?string $driver = null)  {
+                    $manager = $this->app->make(ChatManager::class);
+                    return $driver ? $manager->driver($driver) : $manager;
+                }
+
+                /**
+                 * Get the image manager or a specific image driver when $provider provided.
+                 * Parameter named $provider to allow named argument calls: AI::image(provider: 'openai')
+                 */
+                public function image(?string $provider = null) {
+                    $manager = $this->app->make(ImageManager::class);
+                    return $provider ? $manager->driver($provider) : $manager;
+                }
+
+                public function audio(?string $driver = null) {
+                    $manager = $this->app->make(AudioManager::class);
+                    return $driver ? $manager->driver($driver) : $manager;
+                }
+
+                public function music(?string $driver = null) {
+                    $manager = $this->app->make(MusicManager::class);
+                    return $driver ? $manager->driver($driver) : $manager;
+                }
+
+                public function search(?string $driver = null) {
+                    $manager = $this->app->make(SearchManager::class);
+                    return $driver ? $manager->driver($driver) : $manager;
+                }
             };
         });
     }

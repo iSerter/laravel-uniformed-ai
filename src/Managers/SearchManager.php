@@ -6,9 +6,11 @@ use Illuminate\Support\Manager;
 use Iserter\UniformedAI\Contracts\Search\SearchContract;
 use Iserter\UniformedAI\DTOs\{SearchQuery, SearchResults};
 use Iserter\UniformedAI\Drivers\Tavily\TavilySearchDriver;
+use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
 
 class SearchManager extends Manager implements SearchContract
 {
+    use SupportsUsing;
     public function getDefaultDriver() { return config('uniformed-ai.defaults.search'); }
 
     public function query(SearchQuery $q): SearchResults { return $this->driver()->query($q); }

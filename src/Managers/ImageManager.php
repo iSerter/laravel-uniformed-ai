@@ -6,9 +6,11 @@ use Illuminate\Support\Manager;
 use Iserter\UniformedAI\Contracts\Image\ImageContract;
 use Iserter\UniformedAI\DTOs\{ImageRequest, ImageResponse};
 use Iserter\UniformedAI\Drivers\OpenAI\OpenAIImageDriver;
+use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
 
 class ImageManager extends Manager implements ImageContract
 {
+    use SupportsUsing;
     public function getDefaultDriver() { return config('uniformed-ai.defaults.image'); }
 
     public function create(ImageRequest $r): ImageResponse { return $this->driver()->create($r); }
