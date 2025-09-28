@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
-use Iserter\UniformedAI\DTOs\{ChatMessage, ChatRequest};
-use Iserter\UniformedAI\Managers\ChatManager;
+use Iserter\UniformedAI\Services\Chat\DTOs\{ChatMessage, ChatRequest};
+use Iserter\UniformedAI\Services\Chat\ChatManager;
 use Iserter\UniformedAI\Exceptions\RateLimitException;
 
 it('enforces rate limiting on chat', function() {

@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use Iserter\UniformedAI\DTOs\SearchQuery;
-use Iserter\UniformedAI\Managers\SearchManager;
+use Iserter\UniformedAI\Services\Search\DTOs\SearchQuery;
+use Iserter\UniformedAI\Services\Search\SearchManager;
 
 it('queries Tavily search', function() {
     config()->set('uniformed-ai.defaults.search', 'tavily');

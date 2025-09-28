@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use Iserter\UniformedAI\DTOs\ImageRequest;
-use Iserter\UniformedAI\Managers\ImageManager;
+use Iserter\UniformedAI\Services\Image\DTOs\ImageRequest;
+use Iserter\UniformedAI\Services\Image\ImageManager;
 
 it('generates image via OpenAI image driver', function() {
     config()->set('uniformed-ai.defaults.image', 'openai');

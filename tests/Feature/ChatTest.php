@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use Iserter\UniformedAI\DTOs\{ChatMessage, ChatRequest};
-use Iserter\UniformedAI\Managers\ChatManager;
+use Iserter\UniformedAI\Services\Chat\DTOs\{ChatMessage, ChatRequest};
+use Iserter\UniformedAI\Services\Chat\ChatManager;
 
 it('sends chat via OpenAI driver', function() {
     config()->set('uniformed-ai.defaults.chat', 'openai');

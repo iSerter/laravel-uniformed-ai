@@ -3,7 +3,11 @@
 namespace Iserter\UniformedAI\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Iserter\UniformedAI\Managers\{ChatManager, ImageManager, AudioManager, MusicManager, SearchManager};
+use Iserter\UniformedAI\Services\Chat\ChatManager;
+use Iserter\UniformedAI\Services\Image\ImageManager;
+use Iserter\UniformedAI\Services\Audio\AudioManager;
+use Iserter\UniformedAI\Services\Music\MusicManager;
+use Iserter\UniformedAI\Services\Search\SearchManager;
 
 /**
  * Dynamic access to AI services.
@@ -15,11 +19,11 @@ use Iserter\UniformedAI\Managers\{ChatManager, ImageManager, AudioManager, Music
  *   AI::chat('openrouter')->send(...)
  *   AI::image(provider: 'openai')->create(...)
  *
- * @method static ChatManager|\Iserter\UniformedAI\Contracts\Chat\ChatContract chat(?string $driver = null)
- * @method static ImageManager|\Iserter\UniformedAI\Contracts\Image\ImageContract image(?string $provider = null)
- * @method static AudioManager|\Iserter\UniformedAI\Contracts\Audio\AudioContract audio(?string $driver = null)
- * @method static MusicManager|\Iserter\UniformedAI\Contracts\Music\MusicContract music(?string $driver = null)
- * @method static SearchManager|\Iserter\UniformedAI\Contracts\Search\SearchContract search(?string $driver = null)
+ * @method static ChatManager|\Iserter\UniformedAI\Services\Chat\Contracts\ChatContract chat(?string $driver = null)
+ * @method static ImageManager|\Iserter\UniformedAI\Services\Image\Contracts\ImageContract image(?string $provider = null)
+ * @method static AudioManager|\Iserter\UniformedAI\Services\Audio\Contracts\AudioContract audio(?string $driver = null)
+ * @method static MusicManager|\Iserter\UniformedAI\Services\Music\Contracts\MusicContract music(?string $driver = null)
+ * @method static SearchManager|\Iserter\UniformedAI\Services\Search\Contracts\SearchContract search(?string $driver = null)
  */
 class AI extends Facade
 {

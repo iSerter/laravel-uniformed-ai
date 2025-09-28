@@ -25,70 +25,40 @@ laravel-uniformed-ai/
 │  ├─ UniformedAIServiceProvider.php
 │  ├─ Facades/
 │  │  └─ AI.php
-│  ├─ Contracts/
-│  │  ├─ Chat/ChatContract.php
-│  │  ├─ Image/ImageContract.php
-│  │  ├─ Audio/AudioContract.php
-│  │  ├─ Music/MusicContract.php
-│  │  └─ Search/SearchContract.php
-│  ├─ DTOs/
-│  │  ├─ ChatMessage.php
-│  │  ├─ ChatTool.php
-│  │  ├─ ChatRequest.php
-│  │  ├─ ChatResponse.php
-│  │  ├─ ImageRequest.php
-│  │  ├─ ImageResponse.php
-│  │  ├─ AudioRequest.php
-│  │  ├─ AudioResponse.php
-│  │  ├─ MusicRequest.php
-│  │  ├─ MusicResponse.php
-│  │  ├─ SearchQuery.php
-│  │  └─ SearchResults.php
-│  ├─ Exceptions/
-│  │  ├─ UniformedAIException.php
-│  │  ├─ ProviderException.php
-│  │  ├─ AuthenticationException.php
-│  │  ├─ RateLimitException.php
-│  │  └─ ValidationException.php
-│  ├─ Managers/
-│  │  ├─ ChatManager.php
-│  │  ├─ ImageManager.php
-│  │  ├─ AudioManager.php
-│  │  ├─ MusicManager.php
-│  │  └─ SearchManager.php
-│  ├─ Drivers/
-│  │  ├─ OpenAI/
-│  │  │  ├─ OpenAIChatDriver.php
-│  │  │  ├─ OpenAIImageDriver.php
-│  │  │  └─ Http/OpenAIClient.php
-│  │  ├─ OpenRouter/
-│  │  │  └─ OpenRouterChatDriver.php
-│  │  ├─ Google/
-│  │  │  └─ GoogleChatDriver.php
-│  │  ├─ Tavily/
-│  │  │  └─ TavilySearchDriver.php
-│  │  ├─ ElevenLabs/
-│  │  │  ├─ ElevenLabsAudioDriver.php
-│  │  │  └─ Http/ElevenLabsClient.php
-│  │  ├─ KIE/
-│  │  │  └─ KIEChatDriver.php
-│  │  └─ PIAPI/
-│  │     ├─ PIAPIChatDriver.php
-│  │     └─ PIAPIMusicDriver.php
+│  ├─ Services/
+│  │  ├─ Chat/
+│  │  │  ├─ Contracts/ChatContract.php
+│  │  │  ├─ DTOs/{ChatMessage.php, ChatTool.php, ChatRequest.php, ChatResponse.php}
+│  │  │  ├─ Providers/{OpenAIChatDriver.php, OpenRouterChatDriver.php, GoogleChatDriver.php, KIEChatDriver.php, PIAPIChatDriver.php}
+│  │  │  └─ ChatManager.php
+│  │  ├─ Image/
+│  │  │  ├─ Contracts/ImageContract.php
+│  │  │  ├─ DTOs/{ImageRequest.php, ImageResponse.php}
+│  │  │  ├─ Providers/{OpenAIImageDriver.php}
+│  │  │  └─ ImageManager.php
+│  │  ├─ Audio/
+│  │  │  ├─ Contracts/AudioContract.php
+│  │  │  ├─ DTOs/{AudioRequest.php, AudioResponse.php}
+│  │  │  ├─ Providers/{ElevenLabsAudioDriver.php}
+│  │  │  └─ AudioManager.php
+│  │  ├─ Music/
+│  │  │  ├─ Contracts/MusicContract.php
+│  │  │  ├─ DTOs/{MusicRequest.php, MusicResponse.php}
+│  │  │  ├─ Providers/{PIAPIMusicDriver.php}
+│  │  │  └─ MusicManager.php
+│  │  ├─ Search/
+│  │  │  ├─ Contracts/SearchContract.php
+│  │  │  ├─ DTOs/{SearchQuery.php, SearchResults.php}
+│  │  │  ├─ Providers/{TavilySearchDriver.php}
+│  │  │  └─ SearchManager.php
 │  ├─ Support/
 │  │  ├─ Concerns/SupportsStreaming.php
 │  │  ├─ HttpClientFactory.php
 │  │  ├─ RateLimiter.php
 │  │  ├─ CacheRepository.php
-│  │  └─ Mapper.php
-│  └─ Helpers/
-│     └─ Arr.php
 ├─ tests/
-│  ├─ ChatTest.php
-│  ├─ ImageTest.php
-│  ├─ AudioTest.php
-│  ├─ MusicTest.php
-│  └─ SearchTest.php
+│  ├─ Feature/{ChatTest.php, ChatStreamTest.php, RateLimitTest.php, ImageTest.php, SearchTest.php}
+│  └─ TestCase.php
 └─ README.md
 ```
 

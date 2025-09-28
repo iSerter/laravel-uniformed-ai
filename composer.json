@@ -3,6 +3,12 @@
   "description": "Uniform AI API for Laravel (Chat, Images, Audio, Music, Search) across OpenAI, OpenRouter, Google AI Studio, KIE.AI, PIAPI.AI, Tavily, ElevenLabs, etc.",
   "type": "library",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Ilyas Serter",
+      "homepage": "https://www.iserter.com"
+    }
+  ],
   "require": {
     "php": ">=8.2",
     "illuminate/support": "^10.0|^11.0|^12.0",

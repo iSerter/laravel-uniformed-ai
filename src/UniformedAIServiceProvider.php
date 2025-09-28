@@ -3,7 +3,11 @@
 namespace Iserter\UniformedAI;
 
 use Illuminate\Support\ServiceProvider;
-use Iserter\UniformedAI\Managers\{ChatManager, ImageManager, AudioManager, MusicManager, SearchManager};
+use Iserter\UniformedAI\Services\Chat\ChatManager;
+use Iserter\UniformedAI\Services\Image\ImageManager;
+use Iserter\UniformedAI\Services\Audio\AudioManager;
+use Iserter\UniformedAI\Services\Music\MusicManager;
+use Iserter\UniformedAI\Services\Search\SearchManager;
 
 class UniformedAIServiceProvider extends ServiceProvider
 {
