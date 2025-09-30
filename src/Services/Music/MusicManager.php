@@ -6,6 +6,7 @@ use Illuminate\Support\Manager;
 use Iserter\UniformedAI\Services\Music\Contracts\MusicContract;
 use Iserter\UniformedAI\Services\Music\Providers\PIAPIMusicDriver;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
+use Iserter\UniformedAI\Logging\LoggingDriverFactory;
 
 class MusicManager extends Manager implements MusicContract
 {
@@ -16,6 +17,6 @@ class MusicManager extends Manager implements MusicContract
 
     protected function createPiapiDriver(): MusicContract
     {
-        return new PIAPIMusicDriver(config('uniformed-ai.providers.piapi'));
+        return LoggingDriverFactory::wrap('music', 'piapi', new PIAPIMusicDriver(config('uniformed-ai.providers.piapi')));
     }
 }

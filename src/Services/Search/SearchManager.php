@@ -6,6 +6,7 @@ use Illuminate\Support\Manager;
 use Iserter\UniformedAI\Services\Search\Contracts\SearchContract;
 use Iserter\UniformedAI\Services\Search\Providers\TavilySearchDriver;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
+use Iserter\UniformedAI\Logging\LoggingDriverFactory;
 
 class SearchManager extends Manager implements SearchContract
 {
@@ -16,6 +17,6 @@ class SearchManager extends Manager implements SearchContract
 
     protected function createTavilyDriver(): SearchContract
     {
-        return new TavilySearchDriver(config('uniformed-ai.providers.tavily'));
+        return LoggingDriverFactory::wrap('search', 'tavily', new TavilySearchDriver(config('uniformed-ai.providers.tavily')));
     }
 }

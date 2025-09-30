@@ -7,6 +7,7 @@ use Iserter\UniformedAI\Services\Chat\Contracts\ChatContract;
 use Iserter\UniformedAI\Services\Chat\Providers\{OpenAIChatDriver, OpenRouterChatDriver, GoogleChatDriver, KIEChatDriver, PIAPIChatDriver};
 use Iserter\UniformedAI\Support\RateLimiter;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
+use Iserter\UniformedAI\Logging\LoggingDriverFactory;
 
 class ChatManager extends Manager implements ChatContract
 {
@@ -42,26 +43,26 @@ class ChatManager extends Manager implements ChatContract
     // Drivers
     protected function createOpenaiDriver(): ChatContract
     {
-        return new OpenAIChatDriver(config('uniformed-ai.providers.openai'));
+        return LoggingDriverFactory::wrap('chat', 'openai', new OpenAIChatDriver(config('uniformed-ai.providers.openai')));
     }
 
     protected function createOpenrouterDriver(): ChatContract
     {
-        return new OpenRouterChatDriver(config('uniformed-ai.providers.openrouter'));
+        return LoggingDriverFactory::wrap('chat', 'openrouter', new OpenRouterChatDriver(config('uniformed-ai.providers.openrouter')));
     }
 
     protected function createGoogleDriver(): ChatContract
     {
-        return new GoogleChatDriver(config('uniformed-ai.providers.google'));
+        return LoggingDriverFactory::wrap('chat', 'google', new GoogleChatDriver(config('uniformed-ai.providers.google')));
     }
 
     protected function createKieDriver(): ChatContract
     {
-        return new KIEChatDriver(config('uniformed-ai.providers.kie'));
+        return LoggingDriverFactory::wrap('chat', 'kie', new KIEChatDriver(config('uniformed-ai.providers.kie')));
     }
 
     protected function createPiapiDriver(): ChatContract
     {
-        return new PIAPIChatDriver(config('uniformed-ai.providers.piapi'));
+        return LoggingDriverFactory::wrap('chat', 'piapi', new PIAPIChatDriver(config('uniformed-ai.providers.piapi')));
     }
 }

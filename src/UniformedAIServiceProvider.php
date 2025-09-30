@@ -8,6 +8,7 @@ use Iserter\UniformedAI\Services\Image\ImageManager;
 use Iserter\UniformedAI\Services\Audio\AudioManager;
 use Iserter\UniformedAI\Services\Music\MusicManager;
 use Iserter\UniformedAI\Services\Search\SearchManager;
+use Iserter\UniformedAI\Logging\Commands\PruneServiceUsageLogs;
 
 class UniformedAIServiceProvider extends ServiceProvider
 {
@@ -66,5 +67,19 @@ class UniformedAIServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/uniformed-ai.php' => config_path('uniformed-ai.php'),
         ], 'uniformed-ai-config');
+
+        // Publish migration
+        if (! class_exists('CreateServiceUsageLogsTable')) {
+            $timestamp = date('Y_m_d_His');
+            $this->publishes([
+                __DIR__.'/../database/migrations/2025_01_01_000000_create_service_usage_logs_table.php' => database_path("migrations/{$timestamp}_create_service_usage_logs_table.php"),
+            ], 'uniformed-ai-migrations');
+        }
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                PruneServiceUsageLogs::class,
+            ]);
+        }
     }
 }

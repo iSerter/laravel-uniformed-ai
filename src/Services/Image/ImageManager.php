@@ -6,6 +6,7 @@ use Illuminate\Support\Manager;
 use Iserter\UniformedAI\Services\Image\Contracts\ImageContract;
 use Iserter\UniformedAI\Services\Image\Providers\OpenAIImageDriver;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
+use Iserter\UniformedAI\Logging\LoggingDriverFactory;
 
 class ImageManager extends Manager implements ImageContract
 {
@@ -18,6 +19,6 @@ class ImageManager extends Manager implements ImageContract
 
     protected function createOpenaiDriver(): ImageContract
     {
-        return new OpenAIImageDriver(config('uniformed-ai.providers.openai'));
+        return LoggingDriverFactory::wrap('image', 'openai', new OpenAIImageDriver(config('uniformed-ai.providers.openai')));
     }
 }

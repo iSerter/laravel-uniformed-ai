@@ -115,6 +115,60 @@ composer test
 - Batching & parallelism helpers.
 - Observability (token usage + latency logs).
 
+## AI Operation Usage Logging (Observability)
+
+This package now includes an optional, privacy‑aware logging layer that records each AI operation (chat send/stream, image create/modify/upscale, audio speak, music compose, search query).
+
+### Enable
+Enabled by default. Disable globally via:
+```env
+SERVICE_USAGE_LOG_ENABLED=false
+```
+
+Publish migration & config first (if not already):
+```bash
+php artisan vendor:publish --tag=uniformed-ai-config
+php artisan vendor:publish --tag=uniformed-ai-migrations
+php artisan migrate
+```
+
+### What Gets Logged
+One row per operation with: provider, service_type, service_operation, model, status (success/error), latency_ms, started/finished timestamps, sanitized request/response JSON, optional stream chunks, exception metadata on errors, and user_id (if authenticated).
+
+Secrets (API keys, tokens) are automatically redacted using pattern and heuristic detection. Large payload fields are truncated with a `...(truncated)` suffix.
+
+### Key Config (excerpt)
+```php
+'logging' => [
+    'enabled' => true,
+    'queue' => ['enabled' => false], // turn on for lower latency
+    'truncate' => [ 'request_chars' => 20000, 'response_chars' => 40000, 'chunk_chars' => 2000 ],
+    'stream' => [ 'store_chunks' => true, 'max_chunks' => 500 ],
+    'prune' => ['enabled' => true, 'days' => 30],
+]
+```
+
+### Pruning
+Old rows can be pruned via scheduled command:
+```bash
+php artisan ai-usage-logs:prune
+```
+Add to `app/Console/Kernel.php` schedule:
+```php
+$schedule->command('ai-usage-logs:prune')->daily();
+```
+
+### Async Persistence
+Set `SERVICE_USAGE_LOG_QUEUE=true` and configure your queue worker to offload insert work.
+
+### Querying
+Use the `Iserter\UniformedAI\Models\ServiceUsageLog` model:
+```php
+$errors = ServiceUsageLog::where('status','error')->latest()->limit(20)->get();
+```
+
+Future enhancements (tokens, cost, sampling, external sinks) will build on this foundation.
+
 ## License
 
 MIT

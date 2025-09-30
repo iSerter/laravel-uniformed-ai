@@ -74,4 +74,37 @@ return [
         'tavily'      => env('AI_RL_TAVILY', 0),
         'elevenlabs'  => env('AI_RL_ELEVENLABS', 0),
     ],
+
+    // Service Usage Logging (AI operation observability)
+    'logging' => [
+        'enabled' => env('SERVICE_USAGE_LOG_ENABLED', true),
+        'connection' => env('SERVICE_USAGE_LOG_CONNECTION', null), // null => default DB connection
+        'table' => env('SERVICE_USAGE_LOG_TABLE', 'service_usage_logs'),
+
+        'queue' => [
+            'enabled' => env('SERVICE_USAGE_LOG_QUEUE', false),
+            'connection' => env('SERVICE_USAGE_LOG_QUEUE_CONNECTION', null),
+            'queue' => env('SERVICE_USAGE_LOG_QUEUE_NAME', 'ai-usage-logs'),
+        ],
+
+        'truncate' => [
+            'request_chars' => env('SERVICE_USAGE_LOG_TRUNCATE_REQUEST', 20000),
+            'response_chars' => env('SERVICE_USAGE_LOG_TRUNCATE_RESPONSE', 40000),
+            'chunk_chars' => env('SERVICE_USAGE_LOG_TRUNCATE_CHUNK', 2000),
+        ],
+
+        'stream' => [
+            'store_chunks' => env('SERVICE_USAGE_LOG_STREAM_STORE_CHUNKS', true),
+            'max_chunks' => env('SERVICE_USAGE_LOG_STREAM_MAX_CHUNKS', 500),
+        ],
+
+        'prune' => [
+            'enabled' => env('SERVICE_USAGE_LOG_PRUNE_ENABLED', true),
+            'days' => env('SERVICE_USAGE_LOG_PRUNE_DAYS', 30),
+        ],
+
+        'redaction' => [
+            'mask' => env('SERVICE_USAGE_LOG_REDACTION_MASK', '***REDACTED***'),
+        ],
+    ],
 ];

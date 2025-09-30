@@ -11,4 +11,18 @@ class TestCase extends BaseTestCase
     {
         return [UniformedAIServiceProvider::class];
     }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        config()->set('database.default', 'testing');
+        config()->set('database.connections.testing', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
+
+        // load migrations inside package
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    }
 }
