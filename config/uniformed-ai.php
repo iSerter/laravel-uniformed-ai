@@ -106,5 +106,20 @@ return [
         'redaction' => [
             'mask' => env('SERVICE_USAGE_LOG_REDACTION_MASK', '***REDACTED***'),
         ],
+
+        // Token usage & cost metrics (additive feature)
+        'usage' => [
+            'enabled' => env('AI_USAGE_METRICS_ENABLED', true),
+            'services' => [ 'chat' => true, 'search' => false, 'image' => false, 'audio' => false, 'music' => false ],
+            'estimate_missing' => env('AI_USAGE_ESTIMATE_MISSING', true),
+            'fallback_tokenizer' => env('AI_USAGE_FALLBACK_TOKENIZER', 'cl100k_base'),
+            'rounding' => env('AI_USAGE_COST_ROUNDING', 'bankers'), // bankers|ceil|floor
+            'dynamic_pricing_resolver' => null, // FQCN@method or closure via service provider binding
+            'sampling' => [
+                'success_rate' => env('AI_USAGE_SAMPLE_SUCCESS_RATE', 1.0),
+                'error_rate' => 1.0,
+            ],
+            'store_provider_raw' => env('AI_USAGE_STORE_PROVIDER_RAW', false),
+        ],
     ],
 ];
