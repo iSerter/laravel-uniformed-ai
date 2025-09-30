@@ -1,0 +1,3 @@
+- This is a Laravel package that exposes a single, uniform API over multiple AI providers. 
+- Write clean code and always implement test cases. 
+- the product and design documents are under `/docs`.

@@ -16,6 +16,7 @@ class LogDraft
     protected array $streamChunks = [];
     protected string $finalStream = '';
     protected bool $finished = false;
+    protected ?array $usageMetrics = null; // array form inserted under extra.usage
 
     public static function start(string $service, string $provider, ?string $operation, array $request, ?string $model = null): self
     {
@@ -77,6 +78,13 @@ class LogDraft
         }
     }
 
+    public function attachUsageMetrics(?array $usage): void
+    {
+        if ($usage) {
+            $this->usageMetrics = $usage;
+        }
+    }
+
     protected function latency(): int
     {
         return (int) (microtime(true) * 1000 - $this->data['started_at']->getTimestampMs());
@@ -99,6 +107,11 @@ class LogDraft
 
     public function payload(): array
     {
+        if ($this->usageMetrics) {
+            $extra = $this->data['extra'] ?? [];
+            $extra['usage'] = $this->usageMetrics;
+            $this->data['extra'] = $extra;
+        }
         return $this->data;
     }
 

@@ -9,6 +9,8 @@ use Iserter\UniformedAI\Services\Audio\AudioManager;
 use Iserter\UniformedAI\Services\Music\MusicManager;
 use Iserter\UniformedAI\Services\Search\SearchManager;
 use Iserter\UniformedAI\Logging\Commands\PruneServiceUsageLogs;
+use Iserter\UniformedAI\Logging\Usage\{UsageMetricsCollector, ProviderUsageExtractor, HeuristicCl100kEstimator, PricingEngine};
+use Iserter\UniformedAI\Support\PricingRepository;
 
 class UniformedAIServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,20 @@ class UniformedAIServiceProvider extends ServiceProvider
         $this->app->singleton(AudioManager::class, fn($app) => new AudioManager($app));
         $this->app->singleton(MusicManager::class, fn($app) => new MusicManager($app));
         $this->app->singleton(SearchManager::class, fn($app) => new SearchManager($app));
+
+        // Usage metrics dependencies (scoped singletons for lightweight objects)
+        $this->app->singleton(ProviderUsageExtractor::class, fn() => new ProviderUsageExtractor());
+        $this->app->singleton(HeuristicCl100kEstimator::class, function() {
+            return new HeuristicCl100kEstimator();
+        });
+        $this->app->singleton(PricingEngine::class, fn($app) => new PricingEngine($app->make(PricingRepository::class)));
+        $this->app->singleton(UsageMetricsCollector::class, function($app) {
+            return new UsageMetricsCollector(
+                $app->make(ProviderUsageExtractor::class),
+                $app->make(HeuristicCl100kEstimator::class),
+                $app->make(PricingEngine::class),
+            );
+        });
 
         // Facade accessor binding
         $this->app->singleton('iserter.uniformed-ai.facade', function ($app) {
@@ -67,6 +83,17 @@ class UniformedAIServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/uniformed-ai.php' => config_path('uniformed-ai.php'),
         ], 'uniformed-ai-config');
+
+        // Lightweight config validation for usage metrics
+        $usageCfg = config('uniformed-ai.logging.usage', []);
+        if (!is_array($usageCfg)) {
+            logger()->warning('uniformed-ai: logging.usage config malformed (not array)');
+        } else {
+            $rate = $usageCfg['sampling']['success_rate'] ?? 1.0;
+            if (!is_numeric($rate) || $rate < 0 || $rate > 1) {
+                logger()->warning('uniformed-ai: usage sampling.success_rate must be between 0 and 1');
+            }
+        }
 
         // Publish migration
         if (! class_exists('CreateServiceUsageLogsTable')) {
