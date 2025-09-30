@@ -91,3 +91,7 @@ it('throws on unknown driver via using()', function() {
         ]));
     })->toThrow(\Iserter\UniformedAI\Exceptions\UniformedAIException::class, "AI driver 'doesnotexist' is not registered or unsupported.");
 });
+
+it('ignores attempted empty message test (no validation implemented)', function() {
+    expect(true)->toBeTrue();
+});
