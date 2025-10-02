@@ -19,12 +19,19 @@ class LoggingChatDriver extends AbstractLoggingDriver implements ChatContract
     {
         $draft = $this->startDraft('send', $this->requestArray($request), $request->model);
         return $this->runOperation($draft, function() use ($request, $draft) {
-            $resp = $this->inner->send($request);
+            try {
+                $resp = $this->inner->send($request);
+            } catch (\Iserter\UniformedAI\Exceptions\ProviderException $e) {
+                $draft->setHttpStatus($e->httpStatus());
+                throw $e; // runOperation will mark error and persist
+            }
+            if (is_array($resp->raw ?? null)) {
+                $status = $resp->raw['__http_status'] ?? $resp->raw['status'] ?? null;
+                $draft->setHttpStatus(is_numeric($status) ? (int)$status : null);
+            }
             $this->maybeAttachUsage($draft, $request, $resp, 'send', $resp->content, false);
             return $resp;
-        }, function (ChatResponse $r) {
-            return [ 'content' => $r->content, 'toolCalls' => $r->toolCalls, 'model' => $r->model ];
-        });
+        }, function (ChatResponse $r) { return [ 'content' => $r->content, 'toolCalls' => $r->toolCalls, 'model' => $r->model ]; });
     }
 
     public function stream(ChatRequest $request, ?Closure $onDelta = null): Generator
@@ -40,6 +47,10 @@ class LoggingChatDriver extends AbstractLoggingDriver implements ChatContract
                 // We'll hook into finishSuccessStreaming via finally block? simpler: after runStreaming call.
                 $this->maybeAttachUsage($draft, $request, null, 'stream', $final, false);
             } catch (\Throwable $e) {
+                // If upstream driver exposed last status on exception object (custom property), capture it
+                if (property_exists($e, 'status') && is_numeric($e->status)) {
+                    $draft->setHttpStatus((int)$e->status);
+                }
                 $this->maybeAttachUsage($draft, $request, null, 'stream', $final, true);
                 throw $e;
             }

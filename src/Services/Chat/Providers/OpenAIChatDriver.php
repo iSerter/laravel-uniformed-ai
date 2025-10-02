@@ -43,12 +43,16 @@ class OpenAIChatDriver implements ChatContract
 
         $res = $http->post('chat/completions', $payload);
         if (!$res->successful()) {
-            throw new ProviderException($res->json('error.message') ?? 'OpenAI error', 'openai', $res->status(), $res->json());
+            $raw = $res->json();
+            if (is_array($raw)) { $raw['__http_status'] = $res->status(); }
+            throw new ProviderException($res->json('error.message') ?? 'OpenAI error', 'openai', $res->status(), $raw);
         }
 
         $content = $res->json('choices.0.message.content') ?? '';
         $toolCalls = $res->json('choices.0.message.tool_calls');
-        return new ChatResponse($content, $toolCalls, $payload['model'], $res->json());
+    $raw = $res->json();
+    if (is_array($raw)) { $raw['__http_status'] = $res->status(); }
+    return new ChatResponse($content, $toolCalls, $payload['model'], $raw);
     }
 
     public function stream(ChatRequest $request, ?Closure $onDelta = null): Generator
@@ -65,7 +69,9 @@ class OpenAIChatDriver implements ChatContract
 
         $res = $http->withHeaders(['Accept' => 'text/event-stream'])->post('chat/completions', $payload);
         if (!$res->successful()) {
-            throw new ProviderException('OpenAI stream error', 'openai', $res->status(), $res->json());
+            $raw = $res->json();
+            if (is_array($raw)) { $raw['__http_status'] = $res->status(); }
+            throw new ProviderException('OpenAI stream error', 'openai', $res->status(), $raw);
         }
 
         yield from $this->sseToGenerator($res, $onDelta);

@@ -49,6 +49,7 @@ it('logs error with exception metadata', function() {
     expect($log->status)->toBe('error');
     expect($log->error_class)->toBe(ProviderException::class);
     expect($log->error_message)->toBe('Upstream boom');
+    expect($log->http_status)->toBe(500);
 });
 
 it('logs streaming accumulation with chunks', function() {

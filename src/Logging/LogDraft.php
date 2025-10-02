@@ -78,6 +78,14 @@ class LogDraft
         }
     }
 
+    /** Attach HTTP status (if obtainable) */
+    public function setHttpStatus(?int $status): void
+    {
+        if ($status !== null) {
+            $this->data['http_status'] = $status;
+        }
+    }
+
     public function attachUsageMetrics(?array $usage): void
     {
         if ($usage) {

@@ -13,7 +13,7 @@ return new class extends Migration {
             $t->unsignedBigInteger('user_id')->nullable()->index();
             $t->string('provider', 40)->index();
             $t->string('service_type', 20)->index();
-            $t->string('service_operation', 20)->nullable();
+            $t->string('service_operation', 40)->nullable();
             $t->string('driver', 120)->nullable();
             $t->string('model', 120)->nullable()->index();
             $t->string('status', 16);
@@ -30,6 +30,7 @@ return new class extends Migration {
             $t->json('extra')->nullable();
             $t->timestamps();
             $t->index(['provider','service_type','created_at'],'idx_service_usage_logs_provider_service');
+            $t->index(['provider','model'],'idx_service_usage_logs_provider_model');
         });
     }
 
