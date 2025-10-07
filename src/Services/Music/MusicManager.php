@@ -7,6 +7,7 @@ use Iserter\UniformedAI\Services\Music\Contracts\MusicContract;
 use Iserter\UniformedAI\Services\Music\Providers\PIAPIMusicDriver;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
 use Iserter\UniformedAI\Logging\LoggingDriverFactory;
+use Iserter\UniformedAI\Support\ServiceCatalog;
 
 class MusicManager extends Manager implements MusicContract
 {
@@ -18,5 +19,17 @@ class MusicManager extends Manager implements MusicContract
     protected function createPiapiDriver(): MusicContract
     {
         return LoggingDriverFactory::wrap('music', 'piapi', new PIAPIMusicDriver(config('uniformed-ai.providers.piapi')));
+    }
+
+    /** @return string[] */
+    public function getProviders(): array
+    {
+        return ServiceCatalog::providers('music');
+    }
+
+    /** @return string[] */
+    public function getModels(string $provider): array
+    {
+        return ServiceCatalog::models('music', $provider);
     }
 }

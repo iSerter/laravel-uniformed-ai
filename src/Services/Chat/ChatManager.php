@@ -8,6 +8,7 @@ use Iserter\UniformedAI\Services\Chat\Providers\{OpenAIChatDriver, OpenRouterCha
 use Iserter\UniformedAI\Support\RateLimiter;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
 use Iserter\UniformedAI\Logging\LoggingDriverFactory;
+use Iserter\UniformedAI\Support\ServiceCatalog;
 
 class ChatManager extends Manager implements ChatContract
 {
@@ -64,5 +65,21 @@ class ChatManager extends Manager implements ChatContract
     protected function createPiapiDriver(): ChatContract
     {
         return LoggingDriverFactory::wrap('chat', 'piapi', new PIAPIChatDriver(config('uniformed-ai.providers.piapi')));
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getProviders(): array
+    {
+        return ServiceCatalog::providers('chat');
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getModels(string $provider): array
+    {
+        return ServiceCatalog::models('chat', $provider);
     }
 }

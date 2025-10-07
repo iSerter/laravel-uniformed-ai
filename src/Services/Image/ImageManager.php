@@ -7,6 +7,7 @@ use Iserter\UniformedAI\Services\Image\Contracts\ImageContract;
 use Iserter\UniformedAI\Services\Image\Providers\OpenAIImageDriver;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
 use Iserter\UniformedAI\Logging\LoggingDriverFactory;
+use Iserter\UniformedAI\Support\ServiceCatalog;
 
 class ImageManager extends Manager implements ImageContract
 {
@@ -20,5 +21,17 @@ class ImageManager extends Manager implements ImageContract
     protected function createOpenaiDriver(): ImageContract
     {
         return LoggingDriverFactory::wrap('image', 'openai', new OpenAIImageDriver(config('uniformed-ai.providers.openai')));
+    }
+
+    /** @return string[] */
+    public function getProviders(): array
+    {
+        return ServiceCatalog::providers('image');
+    }
+
+    /** @return string[] */
+    public function getModels(string $provider): array
+    {
+        return ServiceCatalog::models('image', $provider);
     }
 }

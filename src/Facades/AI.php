@@ -8,6 +8,7 @@ use Iserter\UniformedAI\Services\Image\ImageManager;
 use Iserter\UniformedAI\Services\Audio\AudioManager;
 use Iserter\UniformedAI\Services\Music\MusicManager;
 use Iserter\UniformedAI\Services\Search\SearchManager;
+use Iserter\UniformedAI\Support\ServiceCatalog;
 
 /**
  * Dynamic access to AI services.
@@ -24,11 +25,20 @@ use Iserter\UniformedAI\Services\Search\SearchManager;
  * @method static AudioManager|\Iserter\UniformedAI\Services\Audio\Contracts\AudioContract audio(?string $driver = null)
  * @method static MusicManager|\Iserter\UniformedAI\Services\Music\Contracts\MusicContract music(?string $driver = null)
  * @method static SearchManager|\Iserter\UniformedAI\Services\Search\Contracts\SearchContract search(?string $driver = null)
+ * @method static array catalog()
  */
 class AI extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
         return 'iserter.uniformed-ai.facade';
+    }
+
+    /**
+     * Returns the full curated service/provider/model catalog.
+     */
+    public static function catalog(): array
+    {
+        return ServiceCatalog::MAP;
     }
 }

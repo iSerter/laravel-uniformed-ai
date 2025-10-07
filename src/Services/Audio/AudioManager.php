@@ -7,6 +7,7 @@ use Iserter\UniformedAI\Services\Audio\Contracts\AudioContract;
 use Iserter\UniformedAI\Services\Audio\Providers\ElevenLabsAudioDriver;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
 use Iserter\UniformedAI\Logging\LoggingDriverFactory;
+use Iserter\UniformedAI\Support\ServiceCatalog;
 
 class AudioManager extends Manager implements AudioContract
 {
@@ -18,5 +19,17 @@ class AudioManager extends Manager implements AudioContract
     protected function createElevenlabsDriver(): AudioContract
     {
         return LoggingDriverFactory::wrap('audio', 'elevenlabs', new ElevenLabsAudioDriver(config('uniformed-ai.providers.elevenlabs')));
+    }
+
+    /** @return string[] */
+    public function getProviders(): array
+    {
+        return ServiceCatalog::providers('audio');
+    }
+
+    /** @return string[] */
+    public function getModels(string $provider): array
+    {
+        return ServiceCatalog::models('audio', $provider);
     }
 }

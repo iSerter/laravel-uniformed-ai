@@ -169,6 +169,34 @@ $errors = ServiceUsageLog::where('status','error')->latest()->limit(20)->get();
 
 Future enhancements (tokens, cost, sampling, external sinks) will build on this foundation.
 
+## Catalog / Introspection
+
+You can programmatically enumerate supported providers and curated model identifiers per service without hard‑coding them in your app. This is useful for building dynamic admin panels or select dropdowns.
+
+```php
+use Iserter\UniformedAI\Facades\AI;
+
+// Full catalog (service => provider => models[])
+$catalog = AI::catalog();
+// e.g. $catalog['chat']['openai'] contains: ['gpt-4.1-mini','gpt-4.1','gpt-4o-mini','o3-mini']
+
+// List available chat providers
+$providers = AI::chat()->getProviders(); // ['openai','openrouter','google','kie','piapi']
+
+// List curated models for a provider
+$models = AI::chat()->getModels('openai');
+
+// Unknown provider returns an empty array (no exception)
+$none = AI::chat()->getModels('does-not-exist'); // []
+
+// Iterate to render a UI select
+foreach (AI::catalog()['chat'] as $provider => $models) {
+    // render option group for $provider with $models
+}
+```
+
+The list is a curated static set (Phase 1). Future versions may allow config overrides or dynamic discovery.
+
 ## License
 
 MIT
