@@ -33,6 +33,8 @@ return [
         'replicate' => [
             'api_key'  => env('REPLICATE_API_KEY'),
             'base_url' => env('REPLICATE_BASE_URL', 'https://api.replicate.com/v1'),
+            // Provide a lightweight default chat-capable model/version (placeholder; user should override)
+            'chat' => [ 'model' => env('REPLICATE_CHAT_MODEL', 'anthropic/claude-4.5-sonnet') ],
         ],
 
         'kie' => [

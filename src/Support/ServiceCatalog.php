@@ -39,7 +39,7 @@ class ServiceCatalog
             'replicate' => ['minimax/speech-02-turbo','jaaari/kokoro-82m:f559560eb822dc509045f3921a1921234918b91739db4bf3daab2169b71c7a13']
         ],
         'music' => [
-            'kie' => ['V3_5'],
+            'kie' => ['V3_5','V4','V4_5','V4_5PLUS'],
             'replicate' => ['google/lyria-2', 'minimax/music-1.5', 'meta/musicgen:671ac645ce5e552cc63a54a2bbff63fcf798043055d2dac5fc9e36a837eedcfb', 'riffusion/riffusion:8cf61ea6c56afd61d8f5b9ffd14d7c216c0a93844ce2d82ac1c9ecc9c7f24e05']
         ],
         'search' => [

@@ -117,6 +117,8 @@ Provide a driver implementing the relevant Contract and map config / responses t
 
 Uses Pest + Orchestra Testbench. Fakes HTTP calls via `Http::fake()` for provider payload shape + SSE streaming assertions (including mid-stream error events for OpenRouter).
 
+Replicate chat support (prediction-based) is experimental: messages are flattened into a single prompt. Streaming & tool calls for Replicate not yet implemented.
+
 ```bash
 composer test
 ```

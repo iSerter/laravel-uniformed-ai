@@ -22,4 +22,10 @@ class LoggingAudioDriver extends AbstractLoggingDriver implements AudioContract
 
     protected function truncate(string $b64): string
     { $limit = 8000; return strlen($b64) > $limit ? substr($b64,0,$limit-15).'...(truncated)' : $b64; }
+
+    public function getAvailableVoices(bool $refresh = false): array
+    {
+        // Metadata fetch: we can optionally log as a separate operation later; for now pass-through.
+        return $this->inner->getAvailableVoices($refresh);
+    }
 }

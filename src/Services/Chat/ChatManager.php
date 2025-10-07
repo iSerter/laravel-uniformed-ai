@@ -4,7 +4,7 @@ namespace Iserter\UniformedAI\Services\Chat;
 
 use Illuminate\Support\Manager;
 use Iserter\UniformedAI\Services\Chat\Contracts\ChatContract;
-use Iserter\UniformedAI\Services\Chat\Providers\{OpenAIChatDriver, OpenRouterChatDriver, GoogleChatDriver, KIEChatDriver, PIAPIChatDriver};
+use Iserter\UniformedAI\Services\Chat\Providers\{OpenAIChatDriver, OpenRouterChatDriver, GoogleChatDriver, KIEChatDriver, PIAPIChatDriver, ReplicateChatDriver};
 use Iserter\UniformedAI\Support\RateLimiter;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
 use Iserter\UniformedAI\Logging\LoggingDriverFactory;
@@ -65,6 +65,11 @@ class ChatManager extends Manager implements ChatContract
     protected function createPiapiDriver(): ChatContract
     {
         return LoggingDriverFactory::wrap('chat', 'piapi', new PIAPIChatDriver(config('uniformed-ai.providers.piapi')));
+    }
+
+    protected function createReplicateDriver(): ChatContract
+    {
+        return LoggingDriverFactory::wrap('chat', 'replicate', new ReplicateChatDriver(config('uniformed-ai.providers.replicate')));
     }
 
     /**
