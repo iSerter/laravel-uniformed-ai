@@ -19,6 +19,7 @@ class ServiceCatalog
             'openai' => ['gpt-5', 'gpt-5-mini', 'gpt-5-nano', 'gpt-5-pro', 'gpt-4.1-mini','gpt-4.1','gpt-4o-mini','o3-mini'],
             'openrouter' => [
                 'openrouter/auto',
+                'meta-llama/llama-4-maverick', 'meta-llama/llama-4-scout',
                 'google/gemini-2.5-flash', 'google/gemini-2.5-pro', 
                 'qwen/qwen3-max', 'qwen/qwen3-235b-a22b', 'qwen/qwen3-vl-235b-a22b-thinking', 
                 'openai/gpt-5-pro', 'openai/gpt-5-mini', 'openai/gpt-5-codex', 'openai/gpt-4o', 'openai/gpt-4o-mini',

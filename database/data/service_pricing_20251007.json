@@ -1,54 +1,28 @@
 [
-	{
-		"provider": "openai",
-		"service_type": "chat",
-		"model_pattern": "gpt-4.1-mini",
-		"unit": "1K_tokens",
-		"input_cost_cents": 15,
-		"output_cost_cents": 60,
-		"currency": "USD",
-		"effective_at": null,
-		"expires_at": null,
-		"active": true,
-		"meta": {"seed": true, "source": "baseline"}
-	},
-	{
-		"provider": "openai",
-		"service_type": "chat",
-		"model_pattern": "gpt-4o*",
-		"unit": "1K_tokens",
-		"input_cost_cents": 500,
-		"output_cost_cents": 1500,
-		"currency": "USD",
-		"effective_at": null,
-		"expires_at": null,
-		"active": true,
-		"meta": {"seed": true, "note": "wildcard GPT-4o family"}
-	},
-	{
-		"provider": "google",
-		"service_type": "chat",
-		"model_pattern": "gemini-1.5-flash",
-		"unit": "1K_tokens",
-		"input_cost_cents": 7,
-		"output_cost_cents": 30,
-		"currency": "USD",
-		"effective_at": null,
-		"expires_at": null,
-		"active": true,
-		"meta": {"seed": true}
-	},
-	{
-		"provider": "openrouter",
-		"service_type": "chat",
-		"model_pattern": "meta-llama/llama-3.1-8b-instruct",
-		"unit": "1K_tokens",
-		"input_cost_cents": 20,
-		"output_cost_cents": 40,
-		"currency": "USD",
-		"effective_at": null,
-		"expires_at": null,
-		"active": true,
-		"meta": {"seed": true}
-	}
+  {"provider": "openai", "service_type": "chat", "model_pattern": "gpt-5-mini", "unit": "1M_tokens", "input_cost_cents": 250, "output_cost_cents": 2000, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openai_api_pricing_2025-10-07"}},
+  {"provider": "openai", "service_type": "chat", "model_pattern": "gpt-5-nano", "unit": "1M_tokens", "input_cost_cents": 50, "output_cost_cents": 400, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openai_api_pricing_2025-10-07"}},
+  {"provider": "openai", "service_type": "chat", "model_pattern": "gpt-5-pro", "unit": "1M_tokens", "input_cost_cents": 1500, "output_cost_cents": 12000, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openai_api_pricing_2025-10-07"}},
+  {"provider": "openai", "service_type": "chat", "model_pattern": "gpt-4.1", "unit": "1M_tokens", "input_cost_cents": 300, "output_cost_cents": 1200, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openai_api_pricing_2025-10-07"}},
+  {"provider": "openai", "service_type": "chat", "model_pattern": "gpt-4.1-mini", "unit": "1M_tokens", "input_cost_cents": 80, "output_cost_cents": 320, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openai_api_pricing_2025-10-07"}},
+  {"provider": "openai", "service_type": "chat", "model_pattern": "gpt-4.1-nano", "unit": "1M_tokens", "input_cost_cents": 20, "output_cost_cents": 80, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openai_api_pricing_2025-10-07"}},
+  {"provider": "openai", "service_type": "chat", "model_pattern": "o4-mini", "unit": "1M_tokens", "input_cost_cents": 400, "output_cost_cents": 1600, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openai_api_pricing_2025-10-07", "note": "Reasoning model pricing"}},
+  {"provider": "openai", "service_type": "chat", "model_pattern": "gpt-4o", "unit": "1M_tokens", "input_cost_cents": 500, "output_cost_cents": 1500, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "historical_openai_pricing_2024", "assumption": "Carried forward; verify if updated"}},
+  {"provider": "openai", "service_type": "chat", "model_pattern": "gpt-4o-mini", "unit": "1M_tokens", "input_cost_cents": 150, "output_cost_cents": 600, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "historical_openai_pricing_2024", "assumption": "Carried forward; verify if updated"}},
+
+  {"provider": "google", "service_type": "chat", "model_pattern": "gemini-2.5-pro", "unit": "1M_tokens", "input_cost_cents": 125, "output_cost_cents": 1000, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "google_gemini_pricing_2025-10-02", "note": "<=200k prompt tier"}},
+  {"provider": "google", "service_type": "chat", "model_pattern": "gemini-2.5-flash", "unit": "1M_tokens", "input_cost_cents": 30, "output_cost_cents": 250, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "google_gemini_pricing_2025-10-02"}},
+  {"provider": "google", "service_type": "chat", "model_pattern": "gemini-2.5-flash-preview-09-2025", "unit": "1M_tokens", "input_cost_cents": 30, "output_cost_cents": 250, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "google_gemini_pricing_2025-10-02", "note": "Preview same as flash"}},
+  {"provider": "google", "service_type": "chat", "model_pattern": "gemini-2.5-flash-lite", "unit": "1M_tokens", "input_cost_cents": 10, "output_cost_cents": 40, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "google_gemini_pricing_2025-10-02"}},
+  {"provider": "google", "service_type": "chat", "model_pattern": "gemini-2.5-flash-lite-preview-09-2025", "unit": "1M_tokens", "input_cost_cents": 10, "output_cost_cents": 40, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "google_gemini_pricing_2025-10-02", "note": "Preview same as flash-lite"}},
+  {"provider": "google", "service_type": "chat", "model_pattern": "gemini-2.0-flash", "unit": "1M_tokens", "input_cost_cents": 10, "output_cost_cents": 40, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "google_gemini_pricing_2025-10-02"}},
+
+  {"provider": "openrouter", "service_type": "chat", "model_pattern": "meta-llama/llama-3.1-8b-instruct", "unit": "1M_tokens", "input_cost_cents": 2, "output_cost_cents": 3, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openrouter_model_page_2025-10-07"}},
+  {"provider": "openrouter", "service_type": "chat", "model_pattern": "anthropic/claude-sonnet-4.5", "unit": "1M_tokens", "input_cost_cents": 300, "output_cost_cents": 1500, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "anthropic_pricing_2025-10-07"}},
+  {"provider": "openrouter", "service_type": "chat", "model_pattern": "anthropic/claude-opus-4.1", "unit": "1M_tokens", "input_cost_cents": 1500, "output_cost_cents": 7500, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "anthropic_pricing_2025-10-07"}},
+  {"provider": "openrouter", "service_type": "chat", "model_pattern": "anthropic/claude-sonnet-4", "unit": "1M_tokens", "input_cost_cents": 300, "output_cost_cents": 1500, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "anthropic_pricing_2025-10-07"}},
+  {"provider": "openrouter", "service_type": "chat", "model_pattern": "meta-llama/llama-4-maverick", "unit": "1M_tokens", "input_cost_cents": 15, "output_cost_cents": 60, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openrouter_llama4_maverick_2025-10-07"}},
+  {"provider": "openrouter", "service_type": "chat", "model_pattern": "meta-llama/llama-4-scout", "unit": "1M_tokens", "input_cost_cents": 8, "output_cost_cents": 30, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openrouter_llama4_scout_2025-10-07"}},
+
+  {"provider": "openai", "service_type": "image", "model_pattern": "gpt-image-1", "unit": "1M_tokens", "input_cost_cents": 500, "output_cost_cents": null, "currency": "USD", "effective_at": null, "expires_at": null, "active": true, "meta": {"source": "openai_api_pricing_2025-10-07", "note": "Image output billed per image outside token output scope"}} 
+
 ]
