@@ -28,70 +28,38 @@ return new class extends Migration {
             $table->index(['active', 'effective_at']);
         });
 
-        // Seed baseline pricing (reference rates; adjust as needed). Values are cents per 1K tokens.
-        $now = now();
-        DB::table('service_pricings')->insert([
-            [
-                'provider' => 'openai',
-                'service_type' => 'chat',
-                'model_pattern' => 'gpt-4.1-mini',
-                'unit' => '1K_tokens',
-                'input_cost_cents' => 15,  // $0.00015 per token => $0.15 per 1K
-                'output_cost_cents' => 60, // $0.00060 per token => $0.60 per 1K
-                'currency' => 'USD',
-                'effective_at' => $now,
-                'expires_at' => null,
-                'active' => true,
-                'meta' => json_encode(['seed' => true, 'source' => 'baseline']),
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'provider' => 'openai',
-                'service_type' => 'chat',
-                'model_pattern' => 'gpt-4o*',
-                'unit' => '1K_tokens',
-                'input_cost_cents' => 500,  // example placeholder
-                'output_cost_cents' => 1500, // example placeholder
-                'currency' => 'USD',
-                'effective_at' => $now,
-                'expires_at' => null,
-                'active' => true,
-                'meta' => json_encode(['seed' => true, 'note' => 'wildcard GPT-4o family']),
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'provider' => 'google',
-                'service_type' => 'chat',
-                'model_pattern' => 'gemini-1.5-flash',
-                'unit' => '1K_tokens',
-                'input_cost_cents' => 7,   // $0.00007 per token => $0.07 per 1K (example)
-                'output_cost_cents' => 30, // $0.00030 per token => $0.30 per 1K (example)
-                'currency' => 'USD',
-                'effective_at' => $now,
-                'expires_at' => null,
-                'active' => true,
-                'meta' => json_encode(['seed' => true]),
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'provider' => 'openrouter',
-                'service_type' => 'chat',
-                'model_pattern' => 'meta-llama/llama-3.1-8b-instruct',
-                'unit' => '1K_tokens',
-                'input_cost_cents' => 20,
-                'output_cost_cents' => 40,
-                'currency' => 'USD',
-                'effective_at' => $now,
-                'expires_at' => null,
-                'active' => true,
-                'meta' => json_encode(['seed' => true]),
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-        ]);
+        // Seed baseline pricing from external JSON for easier maintenance.
+        $jsonPath = __DIR__ . '/../data/service_pricing_20251007.json';
+        if (file_exists($jsonPath)) {
+            $raw = file_get_contents($jsonPath);
+            $decoded = json_decode($raw, true) ?: [];
+            $now = now();
+            $rows = collect($decoded)
+                ->filter(fn ($r) => is_array($r) && !empty($r['provider']) && !empty($r['model_pattern']))
+                ->map(function (array $r) use ($now) {
+                    return [
+                        'provider' => $r['provider'],
+                        'service_type' => $r['service_type'] ?? null,
+                        'model_pattern' => $r['model_pattern'],
+                        'unit' => $r['unit'] ?? '1K_tokens',
+                        'input_cost_cents' => $r['input_cost_cents'] ?? null,
+                        'output_cost_cents' => $r['output_cost_cents'] ?? null,
+                        'currency' => $r['currency'] ?? 'USD',
+                        'effective_at' => $r['effective_at'] ? ($r['effective_at'] instanceof \DateTimeInterface ? $r['effective_at'] : $now) : $now,
+                        'expires_at' => $r['expires_at'] ?? null,
+                        'active' => array_key_exists('active', $r) ? (bool)$r['active'] : true,
+                        'meta' => isset($r['meta']) ? (is_string($r['meta']) ? $r['meta'] : json_encode($r['meta'])) : null,
+                        'created_at' => $now,
+                        'updated_at' => $now,
+                    ];
+                })
+                ->values()
+                ->all();
+
+            if (!empty($rows)) {
+                DB::table('service_pricings')->insert($rows);
+            }
+        }
     }
 
     public function down(): void

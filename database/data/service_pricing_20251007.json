@@ -1,0 +1,54 @@
+[
+	{
+		"provider": "openai",
+		"service_type": "chat",
+		"model_pattern": "gpt-4.1-mini",
+		"unit": "1K_tokens",
+		"input_cost_cents": 15,
+		"output_cost_cents": 60,
+		"currency": "USD",
+		"effective_at": null,
+		"expires_at": null,
+		"active": true,
+		"meta": {"seed": true, "source": "baseline"}
+	},
+	{
+		"provider": "openai",
+		"service_type": "chat",
+		"model_pattern": "gpt-4o*",
+		"unit": "1K_tokens",
+		"input_cost_cents": 500,
+		"output_cost_cents": 1500,
+		"currency": "USD",
+		"effective_at": null,
+		"expires_at": null,
+		"active": true,
+		"meta": {"seed": true, "note": "wildcard GPT-4o family"}
+	},
+	{
+		"provider": "google",
+		"service_type": "chat",
+		"model_pattern": "gemini-1.5-flash",
+		"unit": "1K_tokens",
+		"input_cost_cents": 7,
+		"output_cost_cents": 30,
+		"currency": "USD",
+		"effective_at": null,
+		"expires_at": null,
+		"active": true,
+		"meta": {"seed": true}
+	},
+	{
+		"provider": "openrouter",
+		"service_type": "chat",
+		"model_pattern": "meta-llama/llama-3.1-8b-instruct",
+		"unit": "1K_tokens",
+		"input_cost_cents": 20,
+		"output_cost_cents": 40,
+		"currency": "USD",
+		"effective_at": null,
+		"expires_at": null,
+		"active": true,
+		"meta": {"seed": true}
+	}
+]
