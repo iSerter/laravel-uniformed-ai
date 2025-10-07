@@ -1,3 +1,4 @@
 - This is a Laravel package that exposes a single, uniform API over multiple AI providers. 
 - Write clean code and always implement test cases. 
 - the product and design documents are under `/docs`.
+- It's not launched yet, so it's okay to make backward-incompatible changes. (but aim to follow the existing design as much as possible)

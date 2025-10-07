@@ -8,7 +8,7 @@ A Laravel package that exposes a single, uniform API over multiple AI providers 
 
 ## Features / Goals
 
-- Uniform Contracts for Chat, Images, Audio/Speech, Music, and Web Search.
+- Uniform Contracts for Chat, Images, Audio/Speech, Music, Video (NEW), and Web Search.
 - Manager + Driver pattern like `filesystem` or `queue`.
 - Clean DTOs for all requests/responses.
 - Streaming & (future) tool/function calling.
@@ -48,6 +48,7 @@ use Iserter\UniformedAI\Services\Chat\DTOs\{ChatMessage, ChatRequest};
 use Iserter\UniformedAI\Services\Image\DTOs\ImageRequest;
 use Iserter\UniformedAI\Services\Audio\DTOs\AudioRequest;
 use Iserter\UniformedAI\Services\Search\DTOs\SearchQuery;
+use Iserter\UniformedAI\Services\Video\DTOs\VideoRequest;
 
 // Chat
 $response = AI::chat()->send(new ChatRequest([
@@ -71,6 +72,14 @@ file_put_contents(storage_path('app/hello.mp3'), base64_decode($tts->b64Audio));
 
 // Search
 $results = AI::search()->query(new SearchQuery('Latest on PHP 8.3 features', maxResults: 5));
+
+// Video (placeholder drivers – not implemented yet; will throw ProviderException for now)
+try {
+    $video = AI::video()->generate(new VideoRequest(prompt: 'A serene flyover of a futuristic Laravel city', durationSeconds: 8));
+    file_put_contents(storage_path('app/clip.mp4'), base64_decode($video->b64Video));
+} catch (\Iserter\UniformedAI\Exceptions\ProviderException $e) {
+    // Until implemented, this is expected.
+}
 
 // On-the-fly provider override (bypasses configured default):
 // Chat default may be openai, but call OpenRouter just for this request
@@ -197,6 +206,11 @@ $none = AI::chat()->getModels('does-not-exist'); // []
 // Iterate to render a UI select
 foreach (AI::catalog()['chat'] as $provider => $models) {
     // render option group for $provider with $models
+}
+
+// Video catalog enumeration (new)
+foreach (AI::catalog()['video'] as $provider => $models) {
+    // render video model options
 }
 ```
 

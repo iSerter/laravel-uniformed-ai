@@ -8,6 +8,7 @@ use Iserter\UniformedAI\Services\Image\ImageManager;
 use Iserter\UniformedAI\Services\Audio\AudioManager;
 use Iserter\UniformedAI\Services\Music\MusicManager;
 use Iserter\UniformedAI\Services\Search\SearchManager;
+use Iserter\UniformedAI\Services\Video\VideoManager;
 use Iserter\UniformedAI\Logging\Commands\PruneServiceUsageLogs;
 use Iserter\UniformedAI\Logging\Usage\{UsageMetricsCollector, ProviderUsageExtractor, HeuristicCl100kEstimator, PricingEngine};
 use Iserter\UniformedAI\Support\PricingRepository;
@@ -23,6 +24,7 @@ class UniformedAIServiceProvider extends ServiceProvider
         $this->app->singleton(AudioManager::class, fn($app) => new AudioManager($app));
         $this->app->singleton(MusicManager::class, fn($app) => new MusicManager($app));
         $this->app->singleton(SearchManager::class, fn($app) => new SearchManager($app));
+    $this->app->singleton(VideoManager::class, fn($app) => new VideoManager($app));
 
         // Usage metrics dependencies (scoped singletons for lightweight objects)
         $this->app->singleton(ProviderUsageExtractor::class, fn() => new ProviderUsageExtractor());
@@ -72,6 +74,11 @@ class UniformedAIServiceProvider extends ServiceProvider
 
                 public function search(?string $driver = null) {
                     $manager = $this->app->make(SearchManager::class);
+                    return $driver ? $manager->driver($driver) : $manager;
+                }
+
+                public function video(?string $driver = null) {
+                    $manager = $this->app->make(VideoManager::class);
                     return $driver ? $manager->driver($driver) : $manager;
                 }
             };

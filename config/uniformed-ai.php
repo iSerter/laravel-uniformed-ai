@@ -7,6 +7,7 @@ return [
         'audio'  => env('AI_AUDIO_PROVIDER', 'elevenlabs'),
         'music'  => env('AI_MUSIC_PROVIDER', 'piapi'),
         'search' => env('AI_SEARCH_PROVIDER', 'tavily'),
+        'video'  => env('AI_VIDEO_PROVIDER', 'replicate'),
     ],
 
     'providers' => [
@@ -37,6 +38,11 @@ return [
         'kie' => [
             'api_key' => env('KIE_AI_API_KEY'),
             'base_url' => env('KIE_AI_BASE_URL'),
+        ],
+        // Video-specific provider overrides (placeholder models; not enforced)
+        'video' => [
+            'replicate' => [ 'model' => env('REPLICATE_VIDEO_MODEL', 'pika/pika-1.0') ],
+            'kie' => [ 'model' => env('KIE_VIDEO_MODEL', 'veo3') ],
         ],
 
         'elevenlabs' => [
@@ -115,7 +121,7 @@ return [
         // Token usage & cost metrics (additive feature)
         'usage' => [
             'enabled' => env('AI_USAGE_METRICS_ENABLED', true),
-            'services' => [ 'chat' => true, 'search' => false, 'image' => false, 'audio' => false, 'music' => false ],
+            'services' => [ 'chat' => true, 'search' => false, 'image' => false, 'audio' => false, 'music' => false, 'video' => false ],
             'estimate_missing' => env('AI_USAGE_ESTIMATE_MISSING', true),
             'fallback_tokenizer' => env('AI_USAGE_FALLBACK_TOKENIZER', 'cl100k_base'),
             'rounding' => env('AI_USAGE_COST_ROUNDING', 'bankers'), // bankers|ceil|floor

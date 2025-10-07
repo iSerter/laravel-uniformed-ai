@@ -45,6 +45,11 @@ class ServiceCatalog
         'search' => [
             'tavily' => ['tavily/advanced','tavily/basic'],
         ],
+        'video' => [
+            // WARNING! these are quite expensive and some are not implemented yet
+            'replicate' => ['minimax/hailuo-02', 'luma/ray', 'leonardoai/motion-2.0', 'bytedance/seedance-1-pro'],
+            'kie' => [ 'veo3'],
+        ],
     ];
 
     /**
