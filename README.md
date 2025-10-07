@@ -1,4 +1,4 @@
-# Laravel Uniformed AI - UNDER DEVELOPMENT - ! DO NOT USE YET ! 
+# Laravel Uniformed AI - UNDER DEVELOPMENT! 
 ![Laravel Uniformed AI](iserter-laravel-uniformed-ai.png)
 
 A Laravel package that exposes a single, uniform API over multiple AI providers (OpenAI, OpenRouter, Google AI Studio, Replicate.com, KIE.AI, PIAPI.AI, Tavily, ElevenLabs, etc.).
@@ -8,8 +8,8 @@ A Laravel package that exposes a single, uniform API over multiple AI providers 
 
 ## Features / Goals
 
-- Uniform Contracts for Chat, Images, Audio/Speech, Music, Video (NEW), and Web Search.
-- Manager + Driver pattern like `filesystem` or `queue`.
+- Uniform Contracts for Chat, Images, Audio/Speech, Music, Video, and Web Search.
+- Service Usage Logs & Cost Measuring
 - Clean DTOs for all requests/responses.
 - Streaming & (future) tool/function calling.
 - Retries, rate limiting, caching, consistent error mapping.
@@ -45,10 +45,7 @@ ELEVENLABS_VOICE_ID=Rachel
 ```php
 use Iserter\UniformedAI\Facades\AI;
 use Iserter\UniformedAI\Services\Chat\DTOs\{ChatMessage, ChatRequest};
-use Iserter\UniformedAI\Services\Image\DTOs\ImageRequest;
-use Iserter\UniformedAI\Services\Audio\DTOs\AudioRequest;
-use Iserter\UniformedAI\Services\Search\DTOs\SearchQuery;
-use Iserter\UniformedAI\Services\Video\DTOs\VideoRequest;
+//... 
 
 // Chat
 $response = AI::chat()->send(new ChatRequest([
@@ -56,15 +53,18 @@ $response = AI::chat()->send(new ChatRequest([
     new ChatMessage('user', 'Write a haiku about Laravel.'),
 ]));
 
-// Streaming (works for OpenAI + OpenRouter; yields token deltas)
-$gen = AI::chat()->stream(new ChatRequest([
-    new ChatMessage('user', 'Stream a short poem, token by token.'),
-]));
-foreach ($gen as $delta) echo $delta; // "Streaming now..."
-
 // Image
 $img = AI::image()->create(new ImageRequest(prompt: 'A low-poly fox, 3D, studio light', size: '1024x1024'));
 file_put_contents(storage_path('app/fox.png'), base64_decode($img->images[0]['b64']));
+
+// On-the-fly provider override (bypasses configured default):
+// Chat default may be openai, but call OpenRouter just for this request (streaming supported)
+$or = AI::chat('openrouter')->send(new ChatRequest([
+    new ChatMessage('user', 'Respond via OpenRouter only once.')
+]));
+
+// Image with named argument provider (works nicely with PHP named params)
+$img2 = AI::image(provider: 'openai')->create(new ImageRequest(prompt: 'A serene lake at dawn'));
 
 // Audio
 $tts = AI::audio()->speak(new AudioRequest(text: 'Hello world from Laravel.', voice: 'Rachel', format: 'mp3'));
@@ -79,27 +79,6 @@ try {
     file_put_contents(storage_path('app/clip.mp4'), base64_decode($video->b64Video));
 } catch (\Iserter\UniformedAI\Exceptions\ProviderException $e) {
     // Until implemented, this is expected.
-}
-
-// On-the-fly provider override (bypasses configured default):
-// Chat default may be openai, but call OpenRouter just for this request (streaming supported)
-$or = AI::chat('openrouter')->send(new ChatRequest([
-    new ChatMessage('user', 'Respond via OpenRouter only once.')
-]));
-
-// Image with named argument provider (works nicely with PHP named params)
-$img2 = AI::image(provider: 'openai')->create(new ImageRequest(prompt: 'A serene lake at dawn'));
-
-// Fluent style (returns the driver instance) – equivalent to AI::chat('openrouter')
-$resp = AI::chat()->using('openrouter')->send(new ChatRequest([
-    new ChatMessage('user', 'Fluent chain example')
-]));
-
-// Unknown driver names throw a UniformedAIException
-try {
-    AI::chat()->using('does_not_exist')->send(new ChatRequest([ new ChatMessage('user', 'hi') ]));
-} catch (\Iserter\UniformedAI\Exceptions\UniformedAIException $e) {
-    // Handle unsupported driver
 }
 ```
 
