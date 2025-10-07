@@ -44,7 +44,10 @@ ELEVENLABS_VOICE_ID=Rachel
 
 ```php
 use Iserter\UniformedAI\Facades\AI;
-use Iserter\UniformedAI\DTOs\{ChatMessage, ChatRequest, ImageRequest, AudioRequest, SearchQuery};
+use Iserter\UniformedAI\Services\Chat\DTOs\{ChatMessage, ChatRequest};
+use Iserter\UniformedAI\Services\Image\DTOs\ImageRequest;
+use Iserter\UniformedAI\Services\Audio\DTOs\AudioRequest;
+use Iserter\UniformedAI\Services\Search\DTOs\SearchQuery;
 
 // Chat
 $response = AI::chat()->send(new ChatRequest([
@@ -94,7 +97,7 @@ try {
 ## Extending
 
 ```php
-app(\Iserter\UniformedAI\Managers\ChatManager::class)->extend('myprovider', function($app) {
+app(\Iserter\UniformedAI\Services\Chat\ChatManager::class)->extend('myprovider', function($app) {
     return new \App\AI\Drivers\MyProviderChatDriver(config('services.myprovider'));
 });
 ```

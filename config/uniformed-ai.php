@@ -2,11 +2,11 @@
 
 return [
     'defaults' => [
-        'chat'   => env('AI_CHAT_DRIVER', 'openai'),
-        'image'  => env('AI_IMAGE_DRIVER', 'openai'),
-        'audio'  => env('AI_AUDIO_DRIVER', 'elevenlabs'),
-        'music'  => env('AI_MUSIC_DRIVER', 'piapi'),
-        'search' => env('AI_SEARCH_DRIVER', 'tavily'),
+        'chat'   => env('AI_CHAT_PROVIDER', 'openai'),
+        'image'  => env('AI_IMAGE_PROVIDER', 'openai'),
+        'audio'  => env('AI_AUDIO_PROVIDER', 'elevenlabs'),
+        'music'  => env('AI_MUSIC_PROVIDER', 'piapi'),
+        'search' => env('AI_SEARCH_PROVIDER', 'tavily'),
     ],
 
     'providers' => [
@@ -29,9 +29,21 @@ return [
             'chat' => ['model' => env('GOOGLE_CHAT_MODEL', 'gemini-1.5-pro')],
         ],
 
+        'replicate' => [
+            'api_key'  => env('REPLICATE_API_KEY'),
+            'base_url' => env('REPLICATE_BASE_URL', 'https://api.replicate.com/v1'),
+        ],
+
         'kie' => [
             'api_key' => env('KIE_AI_API_KEY'),
             'base_url' => env('KIE_AI_BASE_URL'),
+        ],
+
+        'elevenlabs' => [
+            'api_key'  => env('ELEVENLABS_API_KEY'),
+            'base_url' => env('ELEVENLABS_BASE_URL', 'https://api.elevenlabs.io'),
+            'voice_id' => env('ELEVENLABS_VOICE_ID', 'Rachel'),
+            'model'    => env('ELEVENLABS_MODEL', 'eleven_multilingual_v2'),
         ],
 
         'piapi' => [
@@ -44,13 +56,6 @@ return [
             'api_key'  => env('TAVILY_API_KEY'),
             'base_url' => env('TAVILY_BASE_URL', 'https://api.tavily.com'),
             'search' => ['max_results' => 5]
-        ],
-
-        'elevenlabs' => [
-            'api_key'  => env('ELEVENLABS_API_KEY'),
-            'base_url' => env('ELEVENLABS_BASE_URL', 'https://api.elevenlabs.io'),
-            'voice_id' => env('ELEVENLABS_VOICE_ID', 'Rachel'),
-            'model'    => env('ELEVENLABS_MODEL', 'eleven_multilingual_v2'),
         ],
     ],
 
