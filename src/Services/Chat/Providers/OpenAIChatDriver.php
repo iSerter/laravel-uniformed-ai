@@ -18,7 +18,7 @@ class OpenAIChatDriver implements ChatContract
 
     public function send(ChatRequest $request): ChatResponse
     {
-        $http = HttpClientFactory::make($this->cfg);
+    $http = HttpClientFactory::make($this->cfg, 'openai');
         $payload = [
             'model' => $request->model ?? ($this->cfg['chat']['model'] ?? 'gpt-4.1-mini'),
             'messages' => array_map(fn($m) => [
@@ -57,7 +57,7 @@ class OpenAIChatDriver implements ChatContract
 
     public function stream(ChatRequest $request, ?Closure $onDelta = null): Generator
     {
-        $http = HttpClientFactory::make($this->cfg);
+    $http = HttpClientFactory::make($this->cfg, 'openai');
         $payload = [
             'model' => $request->model ?? ($this->cfg['chat']['model'] ?? 'gpt-4.1-mini'),
             'messages' => array_map(fn($m) => [

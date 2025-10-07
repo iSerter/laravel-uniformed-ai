@@ -56,11 +56,11 @@ $response = AI::chat()->send(new ChatRequest([
     new ChatMessage('user', 'Write a haiku about Laravel.'),
 ]));
 
-// Streaming
+// Streaming (works for OpenAI + OpenRouter; yields token deltas)
 $gen = AI::chat()->stream(new ChatRequest([
     new ChatMessage('user', 'Stream a short poem, token by token.'),
 ]));
-foreach ($gen as $delta) echo $delta;
+foreach ($gen as $delta) echo $delta; // "Streaming now..."
 
 // Image
 $img = AI::image()->create(new ImageRequest(prompt: 'A low-poly fox, 3D, studio light', size: '1024x1024'));
@@ -82,7 +82,7 @@ try {
 }
 
 // On-the-fly provider override (bypasses configured default):
-// Chat default may be openai, but call OpenRouter just for this request
+// Chat default may be openai, but call OpenRouter just for this request (streaming supported)
 $or = AI::chat('openrouter')->send(new ChatRequest([
     new ChatMessage('user', 'Respond via OpenRouter only once.')
 ]));
@@ -115,7 +115,7 @@ Provide a driver implementing the relevant Contract and map config / responses t
 
 ## Testing
 
-Uses Pest + Orchestra Testbench. Fakes HTTP calls via `Http::fake()` for provider payload shape assertions.
+Uses Pest + Orchestra Testbench. Fakes HTTP calls via `Http::fake()` for provider payload shape + SSE streaming assertions (including mid-stream error events for OpenRouter).
 
 ```bash
 composer test

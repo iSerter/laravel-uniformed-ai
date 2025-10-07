@@ -13,7 +13,7 @@ class OpenAIImageDriver implements ImageContract
 
     public function create(ImageRequest $request): ImageResponse
     {
-        $http = HttpClientFactory::make($this->cfg);
+    $http = HttpClientFactory::make($this->cfg, 'openai');
         $payload = [
             'model' => $request->model ?? ($this->cfg['image']['model'] ?? 'gpt-image-1'),
             'prompt' => $request->prompt,
@@ -30,7 +30,7 @@ class OpenAIImageDriver implements ImageContract
 
     public function modify(ImageRequest $request): ImageResponse
     {
-        $http = HttpClientFactory::make($this->cfg);
+    $http = HttpClientFactory::make($this->cfg, 'openai');
         $multipart = [
             ['name' => 'model', 'contents' => $request->model ?? ($this->cfg['image']['model'] ?? 'gpt-image-1')],
             ['name' => 'image', 'contents' => fopen($request->imagePath, 'r')],

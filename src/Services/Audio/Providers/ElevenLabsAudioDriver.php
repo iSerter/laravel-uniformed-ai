@@ -13,7 +13,7 @@ class ElevenLabsAudioDriver implements AudioContract
 
     public function speak(AudioRequest $request): AudioResponse
     {
-        $http = HttpClientFactory::make($this->cfg)
+        $http = HttpClientFactory::make($this->cfg, 'elevenlabs')
             ->withHeaders(['xi-api-key' => $this->cfg['api_key']]);
 
         $voice = $request->voice ?? ($this->cfg['voice_id'] ?? 'Rachel');

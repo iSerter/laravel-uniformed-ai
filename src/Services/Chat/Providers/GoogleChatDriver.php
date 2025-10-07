@@ -14,7 +14,7 @@ class GoogleChatDriver implements ChatContract
 
     public function send(ChatRequest $request): ChatResponse
     {
-        $http = HttpClientFactory::make($this->cfg);
+    $http = HttpClientFactory::make($this->cfg, 'google');
         $model = $request->model ?? ($this->cfg['chat']['model'] ?? 'gemini-1.5-pro');
         $contents = array_map(fn($m) => [
             'role' => $m->role,

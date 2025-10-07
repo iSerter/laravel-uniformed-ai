@@ -13,7 +13,7 @@ class TavilySearchDriver implements SearchContract
 
     public function query(SearchQuery $q): SearchResults
     {
-        $http = HttpClientFactory::make($this->cfg);
+        $http = HttpClientFactory::make($this->cfg, 'tavily');
         $payload = [
             'api_key' => $this->cfg['api_key'] ?? null,
             'query' => $q->q,
