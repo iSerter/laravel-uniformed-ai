@@ -35,6 +35,7 @@ class ServiceCatalog
             'replicate' => ['google/nano-banana', 'stability-ai/stable-diffusion-3.5-large', 'black-forest-labs/flux-schnell']
         ],
         'audio' => [
+            'openai' => ['tts-1', 'tts-1-hd', 'whisper-1'],
             'elevenlabs' => ['eleven_multilingual_v2'],
             'replicate' => ['minimax/speech-02-turbo','jaaari/kokoro-82m:f559560eb822dc509045f3921a1921234918b91739db4bf3daab2169b71c7a13']
         ],

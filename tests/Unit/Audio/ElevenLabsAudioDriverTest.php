@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Http;
 use Iserter\UniformedAI\Services\Audio\Providers\ElevenLabsAudioDriver;
-use Iserter\UniformedAI\Services\Audio\DTOs\AudioRequest;
+use Iserter\UniformedAI\Services\Audio\DTOs\{AudioRequest, AudioTranscriptionRequest};
 use Iserter\UniformedAI\Exceptions\ProviderException;
 
 it('fetches and caches available voices', function() {
@@ -71,4 +71,39 @@ it('speaks text returning base64 audio and honors overrides', function(){
     expect($res->raw['voice'])->toBe('Brian');
     expect($res->raw['model'])->toBe('eleven_multilingual_v2');
     expect($res->raw['format'])->toBe('mp3_44100_128');
+});
+
+it('transcribes audio using ElevenLabs speech-to-text API', function() {
+    config()->set('uniformed-ai.providers.elevenlabs', [
+        'api_key' => 'test-key',
+        'base_url' => 'https://api.elevenlabs.io',
+    ]);
+    
+    $driver = new ElevenLabsAudioDriver(config('uniformed-ai.providers.elevenlabs'));
+    
+    $transcriptJson = [
+        'text' => 'Hello from ElevenLabs transcription.',
+        'language' => 'en',
+        'duration' => 3.2,
+    ];
+    
+    Http::fake([
+        'api.elevenlabs.io/v1/speech-to-text/transcripts' => Http::response($transcriptJson, 200),
+    ]);
+    
+    $tempFile = tempnam(sys_get_temp_dir(), 'audio_test_');
+    file_put_contents($tempFile, random_bytes(100));
+    
+    $req = new AudioTranscriptionRequest(
+        audioFile: $tempFile,
+        language: 'en',
+    );
+    
+    $res = $driver->transcribe($req);
+    
+    expect($res->text)->toBe('Hello from ElevenLabs transcription.');
+    expect($res->language)->toBe('en');
+    expect($res->duration)->toBe(3.2);
+    
+    unlink($tempFile);
 });

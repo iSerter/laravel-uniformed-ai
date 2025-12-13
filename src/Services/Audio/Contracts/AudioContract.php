@@ -4,10 +4,14 @@ namespace Iserter\UniformedAI\Services\Audio\Contracts;
 
 use Iserter\UniformedAI\Services\Audio\DTOs\AudioRequest;
 use Iserter\UniformedAI\Services\Audio\DTOs\AudioResponse;
+use Iserter\UniformedAI\Services\Audio\DTOs\AudioTranscriptionRequest;
+use Iserter\UniformedAI\Services\Audio\DTOs\AudioTranscriptionResponse;
 
 interface AudioContract
 {
     public function speak(AudioRequest $request): AudioResponse; // text->speech
+
+    public function transcribe(AudioTranscriptionRequest $request): AudioTranscriptionResponse; // speech->text
 
     /**
      * Retrieve list of available voices for the underlying provider.

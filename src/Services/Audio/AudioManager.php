@@ -6,6 +6,7 @@ use Illuminate\Support\Manager;
 use Iserter\UniformedAI\Services\Audio\Contracts\AudioContract;
 use Iserter\UniformedAI\Services\Audio\Providers\ElevenLabsAudioDriver;
 use Iserter\UniformedAI\Services\Audio\Providers\ReplicateAudioDriver;
+use Iserter\UniformedAI\Services\Audio\Providers\OpenAIAudioDriver;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
 use Iserter\UniformedAI\Logging\LoggingDriverFactory;
 use Iserter\UniformedAI\Support\ServiceCatalog;
@@ -17,6 +18,8 @@ class AudioManager extends Manager implements AudioContract
 
     public function speak(\Iserter\UniformedAI\Services\Audio\DTOs\AudioRequest $r): \Iserter\UniformedAI\Services\Audio\DTOs\AudioResponse { return $this->driver()->speak($r); }
 
+    public function transcribe(\Iserter\UniformedAI\Services\Audio\DTOs\AudioTranscriptionRequest $r): \Iserter\UniformedAI\Services\Audio\DTOs\AudioTranscriptionResponse { return $this->driver()->transcribe($r); }
+
     /**
      * Get available voices for the default or specified provider.
      */
@@ -24,6 +27,11 @@ class AudioManager extends Manager implements AudioContract
     {
         $provider = $provider ?: $this->getDefaultDriver();
         return $this->driver($provider)->getAvailableVoices($refresh);
+    }
+
+    protected function createOpenaiDriver(): AudioContract
+    {
+        return LoggingDriverFactory::wrap('audio', 'openai', new OpenAIAudioDriver(config('uniformed-ai.providers.openai')));
     }
 
     protected function createElevenlabsDriver(): AudioContract

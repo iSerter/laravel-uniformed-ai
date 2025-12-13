@@ -16,6 +16,9 @@ return [
             'base_url' => env('OPENAI_BASE_URL', 'https://api.openai.com/v1'),
             'chat'  => ['model' => env('OPENAI_CHAT_MODEL', 'gpt-4.1-mini')],
             'image' => ['model' => env('OPENAI_IMAGE_MODEL', 'gpt-image-1')],
+            'tts_model' => env('OPENAI_TTS_MODEL', 'tts-1'),
+            'whisper_model' => env('OPENAI_WHISPER_MODEL', 'whisper-1'),
+            'voice' => env('OPENAI_VOICE', 'alloy'),
         ],
 
         'openrouter' => [

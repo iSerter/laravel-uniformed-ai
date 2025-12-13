@@ -45,6 +45,7 @@ ELEVENLABS_VOICE_ID=Rachel
 ```php
 use Iserter\UniformedAI\Facades\AI;
 use Iserter\UniformedAI\Services\Chat\DTOs\{ChatMessage, ChatRequest};
+use Iserter\UniformedAI\Services\Audio\DTOs\{AudioRequest, AudioTranscriptionRequest};
 //... 
 
 // Chat
@@ -66,9 +67,23 @@ $or = AI::chat('openrouter')->send(new ChatRequest([
 // Image with named argument provider (works nicely with PHP named params)
 $img2 = AI::image(provider: 'openai')->create(new ImageRequest(prompt: 'A serene lake at dawn'));
 
-// Audio
+// Audio - Text-to-Speech (TTS)
 $tts = AI::audio()->speak(new AudioRequest(text: 'Hello world from Laravel.', voice: 'Rachel', format: 'mp3'));
 file_put_contents(storage_path('app/hello.mp3'), base64_decode($tts->b64Audio));
+
+// Audio - Speech-to-Text (STT / Transcription)
+$transcript = AI::audio()->transcribe(new AudioTranscriptionRequest(
+    audioFile: storage_path('app/recording.mp3'),
+    language: 'en'
+));
+echo $transcript->text; // "This is the transcribed text..."
+
+// Audio transcription with base64 encoded audio
+$transcript = AI::audio()->transcribe(new AudioTranscriptionRequest(
+    audioFile: $base64AudioContent,
+    isBase64: true,
+    language: 'es'
+));
 
 // Search
 $results = AI::search()->query(new SearchQuery('Latest on PHP 8.3 features', maxResults: 5));
