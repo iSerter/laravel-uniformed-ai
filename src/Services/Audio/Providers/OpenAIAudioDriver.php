@@ -39,7 +39,7 @@ class OpenAIAudioDriver implements AudioContract
             $payload = array_merge($payload, $request->options);
         }
 
-        $res = $http->post('v1/audio/speech', $payload);
+        $res = $http->post('audio/speech', $payload);
 
         if (!$res->successful()) {
             $errorPayload = $res->json() ?? ['body' => $res->body()];
@@ -113,7 +113,7 @@ class OpenAIAudioDriver implements AudioContract
             }
         }
 
-        $res = $http->asMultipart()->post('v1/audio/transcriptions', $multipart);
+        $res = $http->asMultipart()->post('audio/transcriptions', $multipart);
 
         if (!$res->successful()) {
             $errorPayload = $res->json() ?? ['body' => $res->body()];
