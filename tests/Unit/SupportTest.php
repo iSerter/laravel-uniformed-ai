@@ -40,12 +40,12 @@ it('resolves pricing precedence exact service over global', function() {
 
 it('resolves wildcard patterns when exact missing', function() {
     ServicePricing::create([
-        'provider' => 'openai', 'service_type' => 'chat', 'model_pattern' => 'gpt-4o*', 'unit' => '1K_tokens',
+        'provider' => 'openai', 'service_type' => 'chat', 'model_pattern' => 'gpt-99*', 'unit' => '1K_tokens',
         'input_cost_cents' => 10, 'output_cost_cents' => 20, 'currency' => 'USD', 'active' => true,
     ]);
     $repo = new PricingRepository();
-    $pricing = $repo->resolve('openai', 'gpt-4o-mini', 'chat');
-    expect($pricing['pattern'])->toBe('gpt-4o*');
+    $pricing = $repo->resolve('openai', 'gpt-99-experimental', 'chat');
+    expect($pricing['pattern'])->toBe('gpt-99*');
 });
 
 it('returns null pricing when no match', function() {
