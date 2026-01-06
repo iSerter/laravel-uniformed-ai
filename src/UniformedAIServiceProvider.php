@@ -102,11 +102,31 @@ class UniformedAIServiceProvider extends ServiceProvider
             }
         }
 
-        // Publish migration
-        if (! class_exists('CreateServiceUsageLogsTable')) {
+        // Auto-load migrations from package (only if not already published)
+        // Check if migrations have been published to avoid duplicate loading
+        $migrationsPath = database_path('migrations');
+        $hasPublishedMigrations = false;
+        
+        if (is_dir($migrationsPath)) {
+            // Check if either migration has been published
+            $usageLogsFiles = glob($migrationsPath . '/*_create_service_usage_logs_table.php');
+            $pricingsFiles = glob($migrationsPath . '/*_create_service_pricings_table.php');
+            $hasPublishedMigrations = !empty($usageLogsFiles) || !empty($pricingsFiles);
+        }
+        
+        // Only auto-load from vendor if migrations haven't been published
+        // This allows users to customize migrations by publishing them
+        // Note: If you publish migrations, publish ALL of them to avoid conflicts
+        if (! $hasPublishedMigrations) {
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        }
+
+        // Publish migrations (for users who want to customize them)
+        if (! $hasPublishedMigrations) {
             $timestamp = date('Y_m_d_His');
             $this->publishes([
                 __DIR__.'/../database/migrations/2025_01_01_000000_create_service_usage_logs_table.php' => database_path("migrations/{$timestamp}_create_service_usage_logs_table.php"),
+                __DIR__.'/../database/migrations/2025_01_02_000000_create_service_pricings_table.php' => database_path("migrations/{$timestamp}_create_service_pricings_table.php"),
             ], 'uniformed-ai-migrations');
         }
 
