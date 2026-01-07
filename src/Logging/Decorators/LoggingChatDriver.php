@@ -37,7 +37,10 @@ class LoggingChatDriver extends AbstractLoggingDriver implements ChatContract
     public function stream(ChatRequest $request, ?Closure $onDelta = null): Generator
     {
         $draft = $this->startDraft('stream', $this->requestArray($request), $request->model);
-        $gen = $this->inner->stream($request, $onDelta);
+        // Important: do NOT forward $onDelta into the inner driver, otherwise it
+        // will be invoked twice (once inside the provider driver and once inside
+        // runStreaming), causing duplicate chunks/deltas.
+        $gen = $this->inner->stream($request, null);
         $capture = (bool) config('uniformed-ai.logging.stream.store_chunks', true);
         $wrapped = (function() use ($gen, $draft, $request) {
             $final = '';

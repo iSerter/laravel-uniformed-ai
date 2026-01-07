@@ -14,14 +14,29 @@ class PricingEngine
     public function price(string $provider, string $model, string $serviceType, int $promptTokens, int $completionTokens): ?array
     {
         $pricing = $this->repo->resolve($provider, $model, $serviceType);
-        if (!$pricing) return ['pricing_source' => 'unpriced'];
-        if (($pricing['unit'] ?? null) !== '1K_tokens') return ['pricing_source' => $pricing['source'] ?? 'unpriced'];
-        $inputPerK = $pricing['input'] ?? null; $outputPerK = $pricing['output'] ?? null;
-        if ($inputPerK === null && $outputPerK === null) return ['pricing_source' => $pricing['source']];
+        if (!$pricing) {
+            return ['pricing_source' => 'unpriced'];
+        }
+
+        $unit = $pricing['unit'] ?? null;
+        $divisor = $this->getTokenDivisor($unit);
+
+        if ($divisor === null) {
+            return ['pricing_source' => $pricing['source'] ?? 'unpriced'];
+        }
+
+        $inputPerUnit = $pricing['input'] ?? null;
+        $outputPerUnit = $pricing['output'] ?? null;
+
+        if ($inputPerUnit === null && $outputPerUnit === null) {
+            return ['pricing_source' => $pricing['source']];
+        }
+
         $round = config('uniformed-ai.logging.usage.rounding', 'bankers');
-        $inputCost = $inputPerK !== null ? $this->roundCents(($promptTokens/1000)*$inputPerK, $round) : null;
-        $outputCost = $outputPerK !== null ? $this->roundCents(($completionTokens/1000)*$outputPerK, $round) : null;
+        $inputCost = $inputPerUnit !== null ? $this->roundCents(($promptTokens / $divisor) * $inputPerUnit, $round) : null;
+        $outputCost = $outputPerUnit !== null ? $this->roundCents(($completionTokens / $divisor) * $outputPerUnit, $round) : null;
         $total = ($inputCost ?? 0) + ($outputCost ?? 0);
+
         return [
             'input_cost_cents' => $inputCost,
             'output_cost_cents' => $outputCost,
@@ -29,6 +44,18 @@ class PricingEngine
             'currency' => $pricing['currency'] ?? 'USD',
             'pricing_source' => $pricing['source'] ?? 'db',
         ];
+    }
+
+    /**
+     * Get the token divisor based on the pricing unit.
+     */
+    protected function getTokenDivisor(?string $unit): ?int
+    {
+        return match ($unit) {
+            '1K_tokens' => 1_000,
+            '1M_tokens' => 1_000_000,
+            default => null,
+        };
     }
 
     protected function roundCents(float $value, string $mode): int

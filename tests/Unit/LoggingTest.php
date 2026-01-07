@@ -81,3 +81,49 @@ it('usage metrics collector attaches pricing + estimation', function() {
     expect($arr['confidence'])->toBe('estimated');
     expect($arr['pricing_source'])->toContain('db:');
 });
+
+it('pricing engine correctly calculates costs for 1M_tokens unit', function() {
+    Iserter\UniformedAI\Models\ServicePricing::create([
+        'provider' => 'openai', 'service_type' => 'chat', 'model_pattern' => 'gpt-test-1m',
+        'unit' => '1M_tokens', 'input_cost_cents' => 250, 'output_cost_cents' => 2000,
+        'currency' => 'USD', 'active' => true,
+    ]);
+
+    $engine = new PricingEngine(new PricingRepository());
+
+    // With 1M_tokens unit: 1000 tokens = 1/1000 of unit = 0.25 input cents, 2 output cents
+    $result = $engine->price('openai', 'gpt-test-1m', 'chat', 1000, 1000);
+    expect($result)->not->toBeNull();
+    expect($result['pricing_source'])->toContain('db:');
+
+    // With larger token counts for clearer cost calculation
+    // 1,000,000 tokens input = 250 cents, 1,000,000 tokens output = 2000 cents
+    $result = $engine->price('openai', 'gpt-test-1m', 'chat', 1_000_000, 1_000_000);
+    expect($result['input_cost_cents'])->toBe(250);
+    expect($result['output_cost_cents'])->toBe(2000);
+    expect($result['total_cost_cents'])->toBe(2250);
+
+    // Verify correct divisor: 2933 prompt, 1701 completion
+    // input: (2933/1_000_000) * 250 = 0.73325 => rounds to 1 (banker's rounding)
+    // output: (1701/1_000_000) * 2000 = 3.402 => rounds to 3
+    $result = $engine->price('openai', 'gpt-test-1m', 'chat', 2933, 1701);
+    expect($result['input_cost_cents'])->toBe(1);
+    expect($result['output_cost_cents'])->toBe(3);
+    expect($result['total_cost_cents'])->toBe(4);
+});
+
+it('pricing engine correctly calculates costs for 1K_tokens unit', function() {
+    Iserter\UniformedAI\Models\ServicePricing::create([
+        'provider' => 'testprov', 'service_type' => 'chat', 'model_pattern' => 'gpt-test-1k',
+        'unit' => '1K_tokens', 'input_cost_cents' => 10, 'output_cost_cents' => 20,
+        'currency' => 'USD', 'active' => true,
+    ]);
+
+    $engine = new PricingEngine(new PricingRepository());
+
+    // With 1K_tokens unit: 1000 tokens = 1 unit = 10 input cents, 20 output cents
+    $result = $engine->price('testprov', 'gpt-test-1k', 'chat', 1000, 1000);
+    expect($result['input_cost_cents'])->toBe(10);
+    expect($result['output_cost_cents'])->toBe(20);
+    expect($result['total_cost_cents'])->toBe(30);
+});
