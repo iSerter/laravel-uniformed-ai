@@ -16,17 +16,18 @@ class ServiceCatalog
      */
     public const MAP = [
         'chat' => [
-            'openai' => ['gpt-5', 'gpt-5-mini', 'gpt-5-nano', 'gpt-5-pro', 'gpt-4.1-mini','gpt-4.1','gpt-4o-mini','o3-mini'],
+            'openai' => ['gpt-5', 'gpt-5-mini', 'gpt-5-nano', 'gpt-5-pro', 'gpt-5.2', 'gpt-5.2-pro', 'gpt-4.1-mini','gpt-4.1','gpt-4o-mini','o3-mini'],
             'openrouter' => [
-                'openai/gpt-5-pro', 'openai/gpt-5-mini', 'openai/gpt-5-codex', 'openai/gpt-4o', 'openai/gpt-4o-mini',
-                'x-ai/grok-4-fast', 'x-ai/grok-4', 'x-ai/grok-code-fast-1',
-                'anthropic/claude-sonnet-4.5', 'anthropic/claude-opus-4.1', 'anthropic/claude-opus-4', 'anthropic/claude-sonnet-4',
-                'google/gemini-2.5-flash', 'google/gemini-2.5-pro', 
+                'openai/gpt-5-pro', 'openai/gpt-5-mini', 'openai/gpt-5-codex', 'openai/gpt-5.2', 'openai/gpt-oss-120b', 'openai/gpt-4o', 'openai/gpt-4o-mini',
+                'x-ai/grok-4-fast', 'x-ai/grok-4.1-fast', 'x-ai/grok-4', 'x-ai/grok-code-fast-1',
+                'anthropic/claude-sonnet-4.5', 'anthropic/claude-opus-4.5', 'anthropic/claude-haiku-4.5', 'anthropic/claude-opus-4.1', 'anthropic/claude-opus-4', 'anthropic/claude-sonnet-4',
+                'google/gemini-3-pro-preview', 'google/gemini-3-flash-preview', 'google/gemini-2.5-flash', 'google/gemini-2.5-pro',
+                'deepseek/deepseek-v3.2',
                 'meta-llama/llama-4-maverick', 'meta-llama/llama-4-scout',
-                'qwen/qwen3-max', 'qwen/qwen3-235b-a22b', 'qwen/qwen3-vl-235b-a22b-thinking', 
+                'qwen/qwen3-max', 'qwen/qwen3-235b-a22b', 'qwen/qwen3-235b-a22b-thinking-2507', 'qwen/qwen3-vl-235b-a22b-thinking',
             ],
             'replicate' => [
-                'anthropic/claude-4.5-sonnet', 
+                'anthropic/claude-4.5-sonnet',
             ]
         ],
         'image' => [

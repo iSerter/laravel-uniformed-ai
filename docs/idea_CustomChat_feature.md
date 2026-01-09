@@ -1,6 +1,6 @@
 # Feature Design: Configurable Custom Chat Profiles / Presets
 
-> Goal: Provide a first‑class, ergonomic way to create reusable, named, task‑specific chat configurations ("custom GPT" style) with minimal boilerplate and without breaking the existing API.
+Goal: Provide a first‑class, ergonomic way to create reusable, named, task‑specific chat configurations ("custom GPT" style) with minimal boilerplate and without breaking the existing API.
 
 ---
 ## 1. Problem & Motivation
