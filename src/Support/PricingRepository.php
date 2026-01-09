@@ -20,6 +20,7 @@ class PricingRepository
         $cacheKey = "uniformed-ai:pricing:{$provider}:{$serviceType}:{$model}";
         return Cache::remember($cacheKey, 300, function () use ($provider, $model, $serviceType) {
             $rows = ServicePricing::query()->current()
+                ->with('tiers')
                 ->where('provider', $provider)
                 ->orderByDesc('updated_at') // latest takes precedence
                 ->get();
@@ -60,6 +61,12 @@ class PricingRepository
             'effective_at' => optional($p->effective_at)->toIso8601String(),
             'source' => 'db:'.$p->id,
             'pattern' => $p->model_pattern,
+            'tiers' => $p->tiers->map(fn($t) => [
+                'min' => $t->min_units,
+                'max' => $t->max_units,
+                'input' => $t->input_cost_cents,
+                'output' => $t->output_cost_cents,
+            ])->all(),
         ];
     }
 }

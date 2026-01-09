@@ -8,7 +8,7 @@ use Iserter\UniformedAI\Exceptions\ProviderException;
 beforeEach(function() {
     config()->set('uniformed-ai.providers.openai', [
         'api_key' => 'test-openai-key',
-        'base_url' => 'https://api.openai.com',
+        'base_url' => 'https://api.openai.com/v1',
         'tts_model' => 'tts-1',
         'whisper_model' => 'whisper-1',
         'voice' => 'alloy',

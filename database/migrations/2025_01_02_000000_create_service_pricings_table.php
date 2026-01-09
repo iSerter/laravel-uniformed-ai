@@ -41,7 +41,7 @@ return new class extends Migration {
                         'provider' => $r['provider'],
                         'service_type' => $r['service_type'] ?? null,
                         'model_pattern' => $r['model_pattern'],
-                        'unit' => $r['unit'] ?? '1K_tokens',
+                        'unit' => $r['unit'] ?? '1M_tokens',
                         'input_cost_cents' => $r['input_cost_cents'] ?? null,
                         'output_cost_cents' => $r['output_cost_cents'] ?? null,
                         'currency' => $r['currency'] ?? 'USD',

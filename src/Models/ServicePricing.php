@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon|null $expires_at
  * @property bool $active
  * @property array|null $meta
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Iserter\UniformedAI\Models\ServicePricingTier[] $tiers
  */
 class ServicePricing extends Model
 {
@@ -28,6 +29,14 @@ class ServicePricing extends Model
         'expires_at' => 'datetime',
         'meta' => 'array',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tiers()
+    {
+        return $this->hasMany(ServicePricingTier::class)->orderBy('min_units', 'asc');
+    }
 
     /**
      * Scope: only active & currently effective rows (time window inclusive start, exclusive end)

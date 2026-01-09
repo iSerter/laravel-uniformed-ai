@@ -28,6 +28,19 @@ class PricingEngine
         $inputPerUnit = $pricing['input'] ?? null;
         $outputPerUnit = $pricing['output'] ?? null;
 
+        // Dynamic Pricing (Tiers)
+        if (!empty($pricing['tiers'])) {
+            $totalUsage = $promptTokens + $completionTokens;
+            foreach ($pricing['tiers'] as $tier) {
+                $max = $tier['max'] ?? PHP_INT_MAX;
+                if ($totalUsage >= $tier['min'] && $totalUsage <= $max) {
+                    $inputPerUnit = $tier['input'];
+                    $outputPerUnit = $tier['output'];
+                    break;
+                }
+            }
+        }
+
         if ($inputPerUnit === null && $outputPerUnit === null) {
             return ['pricing_source' => $pricing['source']];
         }
