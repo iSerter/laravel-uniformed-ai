@@ -39,5 +39,16 @@ The following table reflects the default pricing data included in the package.
 | **DeepSeek** | `deepseek-v3.2` | $0.25 | $0.38 | Extremely competitive pricing |
 | **Qwen** | `qwen3-max` | $1.20 / $3.00 | $6.00 / $15.00 | **Tiered:** (≤128k / >128k) |
 | **xAI** | `grok-4-fast` | $0.40 | $1.00 | |
+| **xAI** | `grok-4.1-fast` | $0.20 | $0.50 | 2M context window |
+| **xAI** | `grok-code-fast-1` | $0.20 | $1.50 | 256K context window |
 
 *Note: Pricing is effective as of January 9, 2026, and is sourced primarily from OpenRouter aggregation.*
+
+## Token Usage Reference
+
+For context when estimating costs and usage:
+
+- **~1 page of text content** ≈ 600 tokens
+- **100 lines of code** ≈ 1000 tokens
+
+These estimates can help you gauge approximate token consumption for different types of content when planning your AI service usage and budget.
