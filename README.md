@@ -3,8 +3,6 @@
 
 A Laravel package that exposes a single, uniform API over multiple AI providers (OpenAI, OpenRouter, Google AI Studio, Replicate.com, KIE.AI, PIAPI.AI, Tavily, ElevenLabs, etc.).
 
-![Laravel Uniformed AI Infographic](laravel-uniformed-ai-infographic.png)
-
 
 ## Features / Goals
 
