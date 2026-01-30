@@ -106,14 +106,15 @@ class UniformedAIServiceProvider extends ServiceProvider
         // Check if migrations have been published to avoid duplicate loading
         $migrationsPath = database_path('migrations');
         $hasPublishedMigrations = false;
-        
+
         if (is_dir($migrationsPath)) {
-            // Check if either migration has been published
-            $usageLogsFiles = glob($migrationsPath . '/*_create_service_usage_logs_table.php');
-            $pricingsFiles = glob($migrationsPath . '/*_create_service_pricings_table.php');
-            $hasPublishedMigrations = !empty($usageLogsFiles) || !empty($pricingsFiles);
+            // Check if any migration has been published
+            $hasPublishedMigrations = ! empty(glob($migrationsPath.'/*_create_service_usage_logs_table.php'))
+                || ! empty(glob($migrationsPath.'/*_create_service_pricings_table.php'))
+                || ! empty(glob($migrationsPath.'/*_create_service_pricing_tiers_table.php'))
+                || ! empty(glob($migrationsPath.'/*_import_service_pricing_data.php'));
         }
-        
+
         // Only auto-load from vendor if migrations haven't been published
         // This allows users to customize migrations by publishing them
         // Note: If you publish migrations, publish ALL of them to avoid conflicts
@@ -123,10 +124,12 @@ class UniformedAIServiceProvider extends ServiceProvider
 
         // Publish migrations (for users who want to customize them)
         if (! $hasPublishedMigrations) {
-            $timestamp = date('Y_m_d_His');
+            $time = time();
             $this->publishes([
-                __DIR__.'/../database/migrations/2025_01_01_000000_create_service_usage_logs_table.php' => database_path("migrations/{$timestamp}_create_service_usage_logs_table.php"),
-                __DIR__.'/../database/migrations/2025_01_02_000000_create_service_pricings_table.php' => database_path("migrations/{$timestamp}_create_service_pricings_table.php"),
+                __DIR__.'/../database/migrations/2025_01_01_000000_create_service_usage_logs_table.php' => database_path('migrations/'.date('Y_m_d_His', $time).'_create_service_usage_logs_table.php'),
+                __DIR__.'/../database/migrations/2025_01_02_000000_create_service_pricings_table.php' => database_path('migrations/'.date('Y_m_d_His', $time + 1).'_create_service_pricings_table.php'),
+                __DIR__.'/../database/migrations/2026_01_09_000001_create_service_pricing_tiers_table.php' => database_path('migrations/'.date('Y_m_d_His', $time + 2).'_create_service_pricing_tiers_table.php'),
+                __DIR__.'/../database/migrations/2026_01_09_000002_import_service_pricing_data.php' => database_path('migrations/'.date('Y_m_d_His', $time + 3).'_import_service_pricing_data.php'),
             ], 'uniformed-ai-migrations');
         }
 
