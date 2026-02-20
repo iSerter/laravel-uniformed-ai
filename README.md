@@ -89,7 +89,11 @@ $results = AI::search()->query(new SearchQuery('Latest on PHP 8.3 features', max
 // Video (placeholder drivers – not implemented yet; will throw ProviderException for now)
 try {
     $video = AI::video()->generate(new VideoRequest(prompt: 'A serene flyover of a futuristic Laravel city', durationSeconds: 8));
-    file_put_contents(storage_path('app/clip.mp4'), base64_decode($video->b64Video));
+    if ($video->hasUrl()) {
+        file_put_contents(storage_path('app/clip.mp4'), file_get_contents($video->url));
+    } elseif ($video->hasB64Video()) {
+        file_put_contents(storage_path('app/clip.mp4'), base64_decode($video->b64Video));
+    }
 } catch (\Iserter\UniformedAI\Exceptions\ProviderException $e) {
     // Until implemented, this is expected.
 }
