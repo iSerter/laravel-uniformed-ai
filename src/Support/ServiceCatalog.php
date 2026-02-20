@@ -33,7 +33,8 @@ class ServiceCatalog
         'image' => [
             'openai' => ['gpt-image-1'],
             'kie' => ['mj', '4o'],
-            'replicate' => ['google/nano-banana', 'stability-ai/stable-diffusion-3.5-large', 'black-forest-labs/flux-schnell']
+            'replicate' => ['google/nano-banana', 'stability-ai/stable-diffusion-3.5-large', 'black-forest-labs/flux-schnell'],
+            'elevenlabs' => ['google-nano-banana', 'seedream-4', 'flux-1-kontext-pro', 'wan-2.5', 'openai-gpt-image-1'],
         ],
         'audio' => [
             'openai' => ['tts-1', 'tts-1-hd', 'whisper-1'],
@@ -50,7 +51,8 @@ class ServiceCatalog
         'video' => [
             // WARNING! these are quite expensive and some are not implemented yet
             'replicate' => ['minimax/hailuo-02', 'luma/ray', 'leonardoai/motion-2.0', 'bytedance/seedance-1-pro'],
-            'kie' => [ 'veo3'],
+            'kie' => ['veo3'],
+            'elevenlabs' => ['sora-2-pro', 'sora-2', 'google-veo-3.1', 'google-veo-3.1-fast', 'google-veo-3', 'google-veo-3-fast', 'kling-2.5', 'seedance-1-pro', 'wan-2.5'],
         ],
     ];
 

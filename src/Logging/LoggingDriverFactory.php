@@ -2,12 +2,13 @@
 
 namespace Iserter\UniformedAI\Logging;
 
-use Iserter\UniformedAI\Logging\Decorators\{LoggingChatDriver, LoggingImageDriver, LoggingAudioDriver, LoggingMusicDriver, LoggingSearchDriver};
+use Iserter\UniformedAI\Logging\Decorators\{LoggingChatDriver, LoggingImageDriver, LoggingAudioDriver, LoggingMusicDriver, LoggingSearchDriver, LoggingVideoDriver};
 use Iserter\UniformedAI\Services\Chat\Contracts\ChatContract;
 use Iserter\UniformedAI\Services\Image\Contracts\ImageContract;
 use Iserter\UniformedAI\Services\Audio\Contracts\AudioContract;
 use Iserter\UniformedAI\Services\Music\Contracts\MusicContract;
 use Iserter\UniformedAI\Services\Search\Contracts\SearchContract;
+use Iserter\UniformedAI\Services\Video\Contracts\VideoContract;
 
 class LoggingDriverFactory
 {
@@ -21,6 +22,7 @@ class LoggingDriverFactory
             'audio' => $driver instanceof AudioContract ? new LoggingAudioDriver($driver, $provider) : $driver,
             'music' => $driver instanceof MusicContract ? new LoggingMusicDriver($driver, $provider) : $driver,
             'search' => $driver instanceof SearchContract ? new LoggingSearchDriver($driver, $provider) : $driver,
+            'video' => $driver instanceof VideoContract ? new LoggingVideoDriver($driver, $provider) : $driver,
             default => $driver,
         };
     }

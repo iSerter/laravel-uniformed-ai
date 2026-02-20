@@ -51,10 +51,12 @@ return [
         ],
 
         'elevenlabs' => [
-            'api_key'  => env('ELEVENLABS_API_KEY'),
-            'base_url' => env('ELEVENLABS_BASE_URL', 'https://api.elevenlabs.io'),
-            'voice_id' => env('ELEVENLABS_VOICE_ID', 'Rachel'),
-            'model'    => env('ELEVENLABS_MODEL', 'eleven_multilingual_v2'),
+            'api_key'       => env('ELEVENLABS_API_KEY'),
+            'base_url'      => env('ELEVENLABS_BASE_URL', 'https://api.elevenlabs.io'),
+            'voice_id'      => env('ELEVENLABS_VOICE_ID', 'Rachel'),
+            'model'         => env('ELEVENLABS_MODEL', 'eleven_multilingual_v2'),
+            'image_model'   => env('ELEVENLABS_IMAGE_MODEL', 'google-nano-banana'),
+            'video_model'   => env('ELEVENLABS_VIDEO_MODEL', 'google-veo-3-fast'),
         ],
 
         'piapi' => [
