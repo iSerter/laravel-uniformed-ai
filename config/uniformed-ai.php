@@ -45,6 +45,16 @@ return [
             'api_key' => env('KIE_AI_API_KEY'),
             'base_url' => env('KIE_AI_BASE_URL'),
         ],
+
+        'kling' => [
+            // Official KlingAI API: provide access_key + secret_key for JWT auth (recommended)
+            'access_key'  => env('KLING_ACCESS_KEY'),
+            'secret_key'  => env('KLING_SECRET_KEY'),
+            // Gateway / simple Bearer fallback (used when access_key/secret_key are not set)
+            'api_key'     => env('KLING_API_KEY'),
+            'base_url'    => env('KLING_BASE_URL', 'https://api.klingai.com'),
+            'video_model' => env('KLING_VIDEO_MODEL', 'kling-v2-1'),
+        ],
         // Video-specific provider overrides (placeholder models; not enforced)
         'video' => [
             'replicate' => [ 'model' => env('REPLICATE_VIDEO_MODEL', 'pika/pika-1.0') ],
@@ -90,6 +100,7 @@ return [
         'openrouter'  => env('AI_RL_OPENROUTER', 0),
         'google'      => env('AI_RL_GOOGLE', 0),
         'kie'         => env('AI_RL_KIE', 0),
+        'kling'       => env('AI_RL_KLING', 0),
         'piapi'       => env('AI_RL_PIAPI', 0),
         'tavily'      => env('AI_RL_TAVILY', 0),
         'elevenlabs'  => env('AI_RL_ELEVENLABS', 0),

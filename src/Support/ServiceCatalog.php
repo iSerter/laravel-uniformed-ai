@@ -54,6 +54,7 @@ class ServiceCatalog
             'kie' => ['veo3'],
             'elevenlabs' => ['sora-2-pro', 'sora-2', 'google-veo-3.1', 'google-veo-3.1-fast', 'google-veo-3', 'google-veo-3-fast', 'kling-2.5', 'seedance-1-pro', 'wan-2.5'],
             'google' => ['veo-3.1-generate-preview', 'veo-3.1-fast-generate-preview', 'veo-2.0-generate-001'],
+            'kling' => ['kling-v2-1', 'kling-v2-1-master', 'kling-v2-0', 'kling-v1-6', 'kling-v1-5'],
         ],
     ];
 

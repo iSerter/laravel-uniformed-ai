@@ -1,1 +1,0 @@
-[](https://app.klingai.com/global/dev/document-api/quickStart/productIntroduction/overview)
