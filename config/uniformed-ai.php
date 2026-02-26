@@ -31,6 +31,7 @@ return [
             'api_key'  => env('GOOGLE_AI_API_KEY'),
             'base_url' => env('GOOGLE_AI_BASE_URL', 'https://generativelanguage.googleapis.com'),
             'chat' => ['model' => env('GOOGLE_CHAT_MODEL', 'gemini-1.5-pro')],
+            'video_model' => env('GOOGLE_VIDEO_MODEL', 'veo-3.1-generate-preview'),
         ],
 
         'replicate' => [
@@ -48,6 +49,7 @@ return [
         'video' => [
             'replicate' => [ 'model' => env('REPLICATE_VIDEO_MODEL', 'pika/pika-1.0') ],
             'kie' => [ 'model' => env('KIE_VIDEO_MODEL', 'veo3') ],
+            'google' => [ 'model' => env('GOOGLE_VIDEO_MODEL', 'veo-3.1-generate-preview') ],
         ],
 
         'elevenlabs' => [

@@ -4,7 +4,7 @@ namespace Iserter\UniformedAI\Services\Video;
 
 use Illuminate\Support\Manager;
 use Iserter\UniformedAI\Services\Video\Contracts\VideoContract;
-use Iserter\UniformedAI\Services\Video\Providers\{ReplicateVideoDriver, KIEVideoDriver, ElevenLabsVideoDriver};
+use Iserter\UniformedAI\Services\Video\Providers\{ReplicateVideoDriver, KIEVideoDriver, ElevenLabsVideoDriver, GoogleVideoDriver};
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
 use Iserter\UniformedAI\Logging\LoggingDriverFactory;
 use Iserter\UniformedAI\Support\ServiceCatalog;
@@ -31,6 +31,11 @@ class VideoManager extends Manager implements VideoContract
     protected function createElevenlabsDriver(): VideoContract
     {
         return LoggingDriverFactory::wrap('video', 'elevenlabs', new ElevenLabsVideoDriver(config('uniformed-ai.providers.elevenlabs')));
+    }
+
+    protected function createGoogleDriver(): VideoContract
+    {
+        return LoggingDriverFactory::wrap('video', 'google', new GoogleVideoDriver(config('uniformed-ai.providers.google')));
     }
 
     /** @return string[] */
