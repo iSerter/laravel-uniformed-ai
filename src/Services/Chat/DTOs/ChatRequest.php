@@ -14,6 +14,7 @@ class ChatRequest
         public ?array $tools = null,
         public ?string $toolChoice = null, // auto|none|required|name
         public ?array $metadata = null,
+        public array $options = [],
     ) {
         $this->validate();
     }
@@ -35,7 +36,7 @@ class ChatRequest
             throw new \Iserter\UniformedAI\Exceptions\ValidationException('maxTokens must be positive when provided.');
         }
         if ($this->toolChoice !== null) {
-            $allowedChoices = ['auto','none','required'];
+            $allowedChoices = ['auto', 'none', 'required'];
             // Named tool choice allowed if starts with alpha
             if (!in_array($this->toolChoice, $allowedChoices, true) && !preg_match('/^[A-Za-z][A-Za-z0-9_\-]*$/', $this->toolChoice)) {
                 throw new \Iserter\UniformedAI\Exceptions\ValidationException('Invalid toolChoice value.');

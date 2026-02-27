@@ -42,6 +42,10 @@ class OpenRouterChatDriver implements ChatContract
             if ($request->toolChoice) $payload['tool_choice'] = $request->toolChoice;
         }
 
+        if ($request->options) {
+            $payload = array_merge($payload, $request->options);
+        }
+
         // Remove nulls to avoid provider validation errors
         $payload = array_filter($payload, fn($v) => !is_null($v));
 

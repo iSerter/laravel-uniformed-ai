@@ -125,7 +125,7 @@ return [
         ],
 
         'stream' => [
-            'store_chunks' => env('SERVICE_USAGE_LOG_STREAM_STORE_CHUNKS', true),
+            'store_chunks' => env('SERVICE_USAGE_LOG_STREAM_STORE_CHUNKS', false),
             'max_chunks' => env('SERVICE_USAGE_LOG_STREAM_MAX_CHUNKS', 500),
         ],
 
