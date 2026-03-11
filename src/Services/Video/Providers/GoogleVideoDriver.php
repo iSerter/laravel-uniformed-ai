@@ -42,11 +42,13 @@ class GoogleVideoDriver implements VideoContract
         $res = $http->post($endpoint, $body);
 
         if (! $res->successful()) {
+            $raw = $res->json() ?? ['body' => $res->body()];
+            $detail = $raw['error']['message'] ?? $raw['error']['status'] ?? json_encode($raw);
             throw new ProviderException(
-                'Google Veo generate failed',
+                "Google Veo generate failed [{$res->status()}]: {$detail}",
                 'google',
                 $res->status(),
-                $res->json() ?? ['body' => $res->body()],
+                $raw,
             );
         }
 
