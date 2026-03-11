@@ -7,7 +7,7 @@ return [
         'audio'  => env('AI_AUDIO_PROVIDER', 'elevenlabs'),
         'music'  => env('AI_MUSIC_PROVIDER', 'piapi'),
         'search' => env('AI_SEARCH_PROVIDER', 'tavily'),
-        'video'  => env('AI_VIDEO_PROVIDER', 'replicate'),
+        'video'  => env('AI_VIDEO_PROVIDER', 'google'),
     ],
 
     'providers' => [

@@ -4,7 +4,7 @@
 A Laravel package that exposes a single, uniform API over multiple AI providers (OpenAI, OpenRouter, Google AI Studio, Replicate.com, KIE.AI, PIAPI.AI, Tavily, ElevenLabs, etc.).
 
 
-## Features / Goals
+## Features
 
 - Uniform Contracts for Chat, Images, Audio/Speech, Music, Video, and Web Search.
 - Service Usage Logs & Cost Measuring
