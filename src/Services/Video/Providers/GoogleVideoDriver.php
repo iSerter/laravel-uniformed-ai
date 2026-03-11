@@ -101,10 +101,8 @@ class GoogleVideoDriver implements VideoContract
         $imageData = $options['image_inline_data'] ?? null;
         if (is_array($imageData) && ! empty($imageData['data'])) {
             $instance['image'] = [
-                'inlineData' => [
-                    'mimeType' => $imageData['mimeType'] ?? 'image/png',
-                    'data' => $imageData['data'],
-                ],
+                'bytesBase64Encoded' => $imageData['data'],
+                'mimeType' => $imageData['mimeType'] ?? 'image/png',
             ];
         }
 
@@ -147,10 +145,8 @@ class GoogleVideoDriver implements VideoContract
             $lf = $options['last_frame_inline_data'];
             if (! empty($lf['data'])) {
                 $params['lastFrame'] = [
-                    'inlineData' => [
-                        'mimeType' => $lf['mimeType'] ?? 'image/png',
-                        'data' => $lf['data'],
-                    ],
+                    'bytesBase64Encoded' => $lf['data'],
+                    'mimeType' => $lf['mimeType'] ?? 'image/png',
                 ];
             }
         }
@@ -232,7 +228,22 @@ class GoogleVideoDriver implements VideoContract
     private function extractVideoUri(array $response): ?string
     {
         $inner = $response['response'] ?? $response;
-        $samples = $inner['generateVideoResponse']['generatedSamples'] ?? null;
+        $videoResponse = $inner['generateVideoResponse'] ?? [];
+
+        // Surface RAI content filter as a descriptive exception rather than a silent null
+        $raiFiltered = (int) ($videoResponse['raiMediaFilteredCount'] ?? 0);
+        if ($raiFiltered > 0) {
+            $reason = $videoResponse['raiMediaFilteredReasons'][0]
+                ?? 'Content blocked by Google safety policy.';
+            throw new ProviderException(
+                "Google Veo content blocked by safety filter: {$reason}",
+                'google',
+                451,
+                $response,
+            );
+        }
+
+        $samples = $videoResponse['generatedSamples'] ?? null;
         if (! is_array($samples) || empty($samples)) {
             return null;
         }
