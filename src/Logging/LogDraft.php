@@ -46,6 +46,11 @@ class LogDraft
     {
         if ($this->finished) return; $this->finalStream .= $delta; }
 
+    public function getAccumulatedContent(): string
+    {
+        return $this->finalStream;
+    }
+
     public function finishSuccess(mixed $response): void
     {
         if ($this->finished) return; $this->finished = true;

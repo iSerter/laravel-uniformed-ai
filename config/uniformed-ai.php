@@ -84,6 +84,11 @@ return [
         ],
     ],
 
+    // Map external provider names to canonical keys used in service_pricings.
+    // Useful when integrating with clients that use different provider identifiers.
+    // Example: 'open-ai' => 'openai'
+    'provider_aliases' => [],
+
     'http' => [
         'timeout' => env('AI_HTTP_TIMEOUT', 60),
         'retries' => env('AI_HTTP_RETRIES', 2),
