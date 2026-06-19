@@ -32,9 +32,11 @@ class HttpClientFactory
                     // ElevenLabs uses custom header; do NOT also send Bearer to avoid confusion
                     $client = $client->withHeaders(['xi-api-key' => $key]);
                     break;
-                case 'google': // handled via query param at call site
-                case 'tavily': // handled via JSON body at call site
-                    // Intentionally skip Authorization header
+                case 'google':
+                    $client = $client->withQueryParameters(['key' => $key]);
+                    break;
+                case 'tavily':
+                    // Tavily requires api_key in JSON body — handled by driver
                     break;
                 case null: // Backwards compatibility when not supplying provider
                     $client = $client->withToken($key);

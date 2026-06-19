@@ -12,6 +12,7 @@ use Iserter\UniformedAI\Services\Video\VideoManager;
 use Iserter\UniformedAI\Logging\Commands\PruneServiceUsageLogs;
 use Iserter\UniformedAI\Logging\Usage\{UsageMetricsCollector, ProviderUsageExtractor, HeuristicCl100kEstimator, PricingEngine};
 use Iserter\UniformedAI\Support\PricingRepository;
+use Iserter\UniformedAI\Integration\UsageLogger;
 
 class UniformedAIServiceProvider extends ServiceProvider
 {
@@ -39,6 +40,8 @@ class UniformedAIServiceProvider extends ServiceProvider
                 $app->make(PricingEngine::class),
             );
         });
+
+        $this->app->singleton(UsageLogger::class, fn($app) => new UsageLogger($app->make(PricingEngine::class)));
 
         // Facade accessor binding
         $this->app->singleton('iserter.uniformed-ai.facade', function ($app) {

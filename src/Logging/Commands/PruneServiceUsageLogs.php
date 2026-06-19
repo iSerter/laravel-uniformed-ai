@@ -20,8 +20,15 @@ class PruneServiceUsageLogs extends Command
         $cutoff = now()->subDays($days);
         $model = new ServiceUsageLog();
         $conn = config('uniformed-ai.logging.connection');
-        if ($conn) $model->setConnection($conn);
-        $count = $model->newQuery()->where('created_at', '<', $cutoff)->delete();
+        if ($conn) {
+            $model->setConnection($conn);
+        }
+        $count = 0;
+        $chunkSize = 1000;
+        do {
+            $deleted = $model->newQuery()->where('created_at', '<', $cutoff)->limit($chunkSize)->delete();
+            $count += $deleted;
+        } while ($deleted > 0);
         $this->info("Pruned {$count} usage log rows older than {$days} days.");
         return self::SUCCESS;
     }

@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         php: ['8.2', '8.3']
-        laravel: ['10.*', '11.*']
+        laravel: ['11.*']
     name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
     steps:
       - uses: actions/checkout@v4

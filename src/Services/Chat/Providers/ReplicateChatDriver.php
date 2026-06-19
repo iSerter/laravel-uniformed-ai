@@ -37,6 +37,9 @@ class ReplicateChatDriver implements ChatContract
                 'temperature' => $request->temperature,
             ],
         ];
+        if ($request->options) {
+            $payload['input'] = array_merge($payload['input'], $request->options);
+        }
         // Remove nulls recursively
         $payload['input'] = array_filter($payload['input'], fn($v) => !is_null($v));
 
