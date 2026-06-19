@@ -4,7 +4,7 @@
 A Laravel package that exposes a single, uniform API over multiple AI providers (OpenAI, OpenRouter, Google AI Studio, Replicate.com, KIE.AI, PIAPI.AI, Tavily, ElevenLabs, etc.).
 
 
-## Features / Goals
+## Features
 
 - Uniform Contracts for Chat, Images, Audio/Speech, Music, Video, and Web Search.
 - Service Usage Logs & Cost Measuring
@@ -86,10 +86,11 @@ $transcript = AI::audio()->transcribe(new AudioTranscriptionRequest(
 // Search
 $results = AI::search()->query(new SearchQuery('Latest on PHP 8.3 features', maxResults: 5));
 
-// Video (placeholder drivers – not implemented yet; will throw ProviderException for now)
+// Video (e.g. AI_VIDEO_PROVIDER=google for Gemini Veo; replicate, kie, elevenlabs also available)
 try {
-    $video = AI::video()->generate(new VideoRequest(prompt: 'A serene flyover of a futuristic Laravel city', durationSeconds: 8));
+    $video = AI::video()->driver('google')->generate(new VideoRequest(prompt: 'A serene flyover of a futuristic Laravel city', durationSeconds: 8));
     if ($video->hasUrl()) {
+        // With Google driver, the returned URL may require x-goog-api-key header when downloading.
         file_put_contents(storage_path('app/clip.mp4'), file_get_contents($video->url));
     } elseif ($video->hasB64Video()) {
         file_put_contents(storage_path('app/clip.mp4'), base64_decode($video->b64Video));

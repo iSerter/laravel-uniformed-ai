@@ -6,6 +6,7 @@ use Illuminate\Support\Manager;
 use Iserter\UniformedAI\Services\Image\Contracts\ImageContract;
 use Iserter\UniformedAI\Services\Image\Providers\OpenAIImageDriver;
 use Iserter\UniformedAI\Services\Image\Providers\KIEImageDriver;
+use Iserter\UniformedAI\Services\Image\Providers\ElevenLabsImageDriver;
 use Iserter\UniformedAI\Support\Concerns\SupportsUsing;
 use Iserter\UniformedAI\Logging\LoggingDriverFactory;
 use Iserter\UniformedAI\Support\ServiceCatalog;
@@ -27,6 +28,11 @@ class ImageManager extends Manager implements ImageContract
     protected function createKieDriver(): ImageContract
     {
         return LoggingDriverFactory::wrap('image', 'kie', new KIEImageDriver(config('uniformed-ai.providers.kie')));
+    }
+
+    protected function createElevenlabsDriver(): ImageContract
+    {
+        return LoggingDriverFactory::wrap('image', 'elevenlabs', new ElevenLabsImageDriver(config('uniformed-ai.providers.elevenlabs')));
     }
 
     /** @return string[] */

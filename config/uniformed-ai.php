@@ -7,7 +7,7 @@ return [
         'audio'  => env('AI_AUDIO_PROVIDER', 'elevenlabs'),
         'music'  => env('AI_MUSIC_PROVIDER', 'piapi'),
         'search' => env('AI_SEARCH_PROVIDER', 'tavily'),
-        'video'  => env('AI_VIDEO_PROVIDER', 'replicate'),
+        'video'  => env('AI_VIDEO_PROVIDER', 'google'),
     ],
 
     'providers' => [
@@ -31,6 +31,7 @@ return [
             'api_key'  => env('GOOGLE_AI_API_KEY'),
             'base_url' => env('GOOGLE_AI_BASE_URL', 'https://generativelanguage.googleapis.com'),
             'chat' => ['model' => env('GOOGLE_CHAT_MODEL', 'gemini-1.5-pro')],
+            'video_model' => env('GOOGLE_VIDEO_MODEL', 'veo-3.1-generate-preview'),
         ],
 
         'replicate' => [
@@ -44,17 +45,30 @@ return [
             'api_key' => env('KIE_AI_API_KEY'),
             'base_url' => env('KIE_AI_BASE_URL'),
         ],
+
+        'kling' => [
+            // Official KlingAI API: provide access_key + secret_key for JWT auth (recommended)
+            'access_key'  => env('KLING_ACCESS_KEY'),
+            'secret_key'  => env('KLING_SECRET_KEY'),
+            // Gateway / simple Bearer fallback (used when access_key/secret_key are not set)
+            'api_key'     => env('KLING_API_KEY'),
+            'base_url'    => env('KLING_BASE_URL', 'https://api.klingai.com'),
+            'video_model' => env('KLING_VIDEO_MODEL', 'kling-v2-1'),
+        ],
         // Video-specific provider overrides (placeholder models; not enforced)
         'video' => [
             'replicate' => [ 'model' => env('REPLICATE_VIDEO_MODEL', 'pika/pika-1.0') ],
             'kie' => [ 'model' => env('KIE_VIDEO_MODEL', 'veo3') ],
+            'google' => [ 'model' => env('GOOGLE_VIDEO_MODEL', 'veo-3.1-generate-preview') ],
         ],
 
         'elevenlabs' => [
-            'api_key'  => env('ELEVENLABS_API_KEY'),
-            'base_url' => env('ELEVENLABS_BASE_URL', 'https://api.elevenlabs.io'),
-            'voice_id' => env('ELEVENLABS_VOICE_ID', 'Rachel'),
-            'model'    => env('ELEVENLABS_MODEL', 'eleven_multilingual_v2'),
+            'api_key'       => env('ELEVENLABS_API_KEY'),
+            'base_url'      => env('ELEVENLABS_BASE_URL', 'https://api.elevenlabs.io'),
+            'voice_id'      => env('ELEVENLABS_VOICE_ID', 'Rachel'),
+            'model'         => env('ELEVENLABS_MODEL', 'eleven_multilingual_v2'),
+            'image_model'   => env('ELEVENLABS_IMAGE_MODEL', 'google-nano-banana'),
+            'video_model'   => env('ELEVENLABS_VIDEO_MODEL', 'google-veo-3-fast'),
         ],
 
         'piapi' => [
@@ -69,6 +83,11 @@ return [
             'search' => ['max_results' => 5]
         ],
     ],
+
+    // Map external provider names to canonical keys used in service_pricings.
+    // Useful when integrating with clients that use different provider identifiers.
+    // Example: 'open-ai' => 'openai'
+    'provider_aliases' => [],
 
     'http' => [
         'timeout' => env('AI_HTTP_TIMEOUT', 60),
@@ -86,6 +105,7 @@ return [
         'openrouter'  => env('AI_RL_OPENROUTER', 0),
         'google'      => env('AI_RL_GOOGLE', 0),
         'kie'         => env('AI_RL_KIE', 0),
+        'kling'       => env('AI_RL_KLING', 0),
         'piapi'       => env('AI_RL_PIAPI', 0),
         'tavily'      => env('AI_RL_TAVILY', 0),
         'elevenlabs'  => env('AI_RL_ELEVENLABS', 0),
@@ -110,7 +130,7 @@ return [
         ],
 
         'stream' => [
-            'store_chunks' => env('SERVICE_USAGE_LOG_STREAM_STORE_CHUNKS', true),
+            'store_chunks' => env('SERVICE_USAGE_LOG_STREAM_STORE_CHUNKS', false),
             'max_chunks' => env('SERVICE_USAGE_LOG_STREAM_MAX_CHUNKS', 500),
         ],
 
