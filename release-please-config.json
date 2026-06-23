@@ -1,0 +1,11 @@
+{
+  "packages": {
+    ".": {
+      "package-name": "iserter/laravel-uniformed-ai",
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "php",
+      "bump-minor-pre-major": false,
+      "bump-patch-for-minor-pre-major": false
+    }
+  }
+}
