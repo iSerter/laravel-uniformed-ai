@@ -35,6 +35,7 @@ class ServiceCatalog
             'kie' => ['mj', '4o'],
             'replicate' => ['google/nano-banana', 'stability-ai/stable-diffusion-3.5-large', 'black-forest-labs/flux-schnell'],
             'elevenlabs' => ['google-nano-banana', 'seedream-4', 'flux-1-kontext-pro', 'wan-2.5', 'openai-gpt-image-1'],
+            'google' => ['gemini-3.1-flash-lite-image', 'gemini-3.1-flash-image', 'gemini-3-pro-image', 'gemini-2.5-flash-image'],
         ],
         'audio' => [
             'openai' => ['tts-1', 'tts-1-hd', 'whisper-1'],
