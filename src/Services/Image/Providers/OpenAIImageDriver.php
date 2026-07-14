@@ -14,12 +14,16 @@ class OpenAIImageDriver implements ImageContract
     public function create(ImageRequest $request): ImageResponse
     {
     $http = HttpClientFactory::make($this->cfg, 'openai');
+        $model = $request->model ?? ($this->cfg['image']['model'] ?? 'gpt-image-1');
         $payload = [
-            'model' => $request->model ?? ($this->cfg['image']['model'] ?? 'gpt-image-1'),
+            'model' => $model,
             'prompt' => $request->prompt,
             'size' => $request->size,
-            'response_format' => 'b64_json',
         ];
+        // GPT-image models always return base64 and reject this parameter; only dall-e-* needs it.
+        if (str_starts_with($model, 'dall-e')) {
+            $payload['response_format'] = 'b64_json';
+        }
         $res = $http->post('images/generations', $payload);
         if (!$res->successful()) {
             throw new ProviderException('OpenAI image error', 'openai', $res->status(), $res->json());
