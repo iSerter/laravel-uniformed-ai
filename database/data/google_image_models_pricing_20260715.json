@@ -1,0 +1,70 @@
+[
+  {
+    "provider": "google",
+    "service_type": "image",
+    "model_pattern": "gemini-3.1-flash-lite-image",
+    "unit": "1M_tokens",
+    "input_cost_cents": 25,
+    "output_cost_cents": 3000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "google_image_models_pricing_2026-07-15",
+      "url": "https://ai.google.dev/pricing",
+      "note": "Paid tier, Standard. Image generation model."
+    }
+  },
+  {
+    "provider": "google",
+    "service_type": "image",
+    "model_pattern": "gemini-3.1-flash-image",
+    "unit": "1M_tokens",
+    "input_cost_cents": 50,
+    "output_cost_cents": 6000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "google_image_models_pricing_2026-07-15",
+      "url": "https://ai.google.dev/pricing",
+      "note": "Paid tier, Standard. Image generation model."
+    }
+  },
+  {
+    "provider": "google",
+    "service_type": "image",
+    "model_pattern": "gemini-3-pro-image",
+    "unit": "1M_tokens",
+    "input_cost_cents": 200,
+    "output_cost_cents": 12000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "google_image_models_pricing_2026-07-15",
+      "url": "https://ai.google.dev/pricing",
+      "note": "Paid tier, Standard. Image generation model."
+    }
+  },
+  {
+    "provider": "google",
+    "service_type": "image",
+    "model_pattern": "gemini-2.5-flash-image",
+    "unit": "1M_tokens",
+    "input_cost_cents": 30,
+    "output_cost_cents": 3000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "google_image_models_pricing_2026-07-15",
+      "url": "https://ai.google.dev/pricing",
+      "note": "Paid tier, Standard. Image generation model."
+    }
+  }
+]

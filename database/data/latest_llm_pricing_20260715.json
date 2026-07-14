@@ -1,0 +1,416 @@
+[
+  {
+    "provider": "openai",
+    "service_type": "chat",
+    "model_pattern": "gpt-5",
+    "unit": "1M_tokens",
+    "input_cost_cents": 500,
+    "output_cost_cents": 4000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15",
+      "note": "Flagship GPT-5 baseline model."
+    }
+  },
+  {
+    "provider": "openai",
+    "service_type": "chat",
+    "model_pattern": "o3-mini",
+    "unit": "1M_tokens",
+    "input_cost_cents": 110,
+    "output_cost_cents": 440,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15",
+      "url": "https://developers.openai.com/api/docs/pricing",
+      "note": "Cost-efficient reasoning model."
+    }
+  },
+  {
+    "provider": "openai",
+    "service_type": "chat",
+    "model_pattern": "gpt-5.6-sol",
+    "unit": "1M_tokens",
+    "input_cost_cents": 500,
+    "output_cost_cents": 3000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15",
+      "note": "Flagship GPT-5.6 Sol model for complex reasoning."
+    }
+  },
+  {
+    "provider": "openai",
+    "service_type": "chat",
+    "model_pattern": "gpt-5.6-terra",
+    "unit": "1M_tokens",
+    "input_cost_cents": 250,
+    "output_cost_cents": 1500,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15",
+      "note": "Mid-tier GPT-5.6 Terra model."
+    }
+  },
+  {
+    "provider": "openai",
+    "service_type": "chat",
+    "model_pattern": "gpt-5.6-luna",
+    "unit": "1M_tokens",
+    "input_cost_cents": 100,
+    "output_cost_cents": 600,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15",
+      "note": "High-volume, cost-efficient GPT-5.6 Luna model."
+    }
+  },
+  {
+    "provider": "anthropic",
+    "service_type": "chat",
+    "model_pattern": "claude-fable-5",
+    "unit": "1M_tokens",
+    "input_cost_cents": 1000,
+    "output_cost_cents": 5000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15",
+      "note": "Mythos-class flagship model from Anthropic."
+    }
+  },
+  {
+    "provider": "google",
+    "service_type": "chat",
+    "model_pattern": "gemini-3.5-flash",
+    "unit": "1M_tokens",
+    "input_cost_cents": 150,
+    "output_cost_cents": 900,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15",
+      "note": "Flagship Gemini 3.5 model optimized for speed and agentic workflows."
+    }
+  },
+  {
+    "provider": "xai",
+    "service_type": "chat",
+    "model_pattern": "grok-4.5",
+    "unit": "1M_tokens",
+    "input_cost_cents": 200,
+    "output_cost_cents": 600,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15",
+      "note": "Grok 4.5 flagship model."
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "openai/gpt-5-pro",
+    "unit": "1M_tokens",
+    "input_cost_cents": 1500,
+    "output_cost_cents": 12000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "openai/gpt-5-mini",
+    "unit": "1M_tokens",
+    "input_cost_cents": 250,
+    "output_cost_cents": 2000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "openai/gpt-5-codex",
+    "unit": "1M_tokens",
+    "input_cost_cents": 125,
+    "output_cost_cents": 1000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "openai/gpt-4o",
+    "unit": "1M_tokens",
+    "input_cost_cents": 500,
+    "output_cost_cents": 1500,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "openai/gpt-4o-mini",
+    "unit": "1M_tokens",
+    "input_cost_cents": 150,
+    "output_cost_cents": 600,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "x-ai/grok-4",
+    "unit": "1M_tokens",
+    "input_cost_cents": 200,
+    "output_cost_cents": 600,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "x-ai/grok-code-fast-1",
+    "unit": "1M_tokens",
+    "input_cost_cents": 20,
+    "output_cost_cents": 150,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "anthropic/claude-opus-4",
+    "unit": "1M_tokens",
+    "input_cost_cents": 1500,
+    "output_cost_cents": 7500,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "google/gemini-2.5-flash",
+    "unit": "1M_tokens",
+    "input_cost_cents": 30,
+    "output_cost_cents": 250,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "google/gemini-2.5-pro",
+    "unit": "1M_tokens",
+    "input_cost_cents": 125,
+    "output_cost_cents": 1000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "qwen/qwen3-235b-a22b",
+    "unit": "1M_tokens",
+    "input_cost_cents": 46,
+    "output_cost_cents": 182,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "qwen/qwen3-vl-235b-a22b-thinking",
+    "unit": "1M_tokens",
+    "input_cost_cents": 26,
+    "output_cost_cents": 260,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "openai/gpt-5.6-sol",
+    "unit": "1M_tokens",
+    "input_cost_cents": 500,
+    "output_cost_cents": 3000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "openai/gpt-5.6-terra",
+    "unit": "1M_tokens",
+    "input_cost_cents": 250,
+    "output_cost_cents": 1500,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "openai/gpt-5.6-luna",
+    "unit": "1M_tokens",
+    "input_cost_cents": 100,
+    "output_cost_cents": 600,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "anthropic/claude-fable-5",
+    "unit": "1M_tokens",
+    "input_cost_cents": 1000,
+    "output_cost_cents": 5000,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "google/gemini-3.5-flash",
+    "unit": "1M_tokens",
+    "input_cost_cents": 150,
+    "output_cost_cents": 900,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "openrouter",
+    "service_type": "chat",
+    "model_pattern": "x-ai/grok-4.5",
+    "unit": "1M_tokens",
+    "input_cost_cents": 200,
+    "output_cost_cents": 600,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  },
+  {
+    "provider": "replicate",
+    "service_type": "chat",
+    "model_pattern": "anthropic/claude-4.5-sonnet",
+    "unit": "1M_tokens",
+    "input_cost_cents": 300,
+    "output_cost_cents": 1500,
+    "currency": "USD",
+    "effective_at": null,
+    "expires_at": null,
+    "active": true,
+    "meta": {
+      "source": "latest_llm_pricing_2026-07-15"
+    }
+  }
+]
